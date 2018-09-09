@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="exercise"
+            type="com.pirateman.exercisemanager.ExerciseInterval" />
+    </data>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context=".ActivityFragment">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:hint="Activity"
+            android:text="@{exercise.activity}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:hint="Speed"
+            android:text="@{Double.toString(exercise.speed)}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:hint="Incline"
+            android:text="@{Double.toString(exercise.incline)}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Duration"
+            android:text="@{Integer.toString(exercise.duration)}" />
+
+        <ImageButton
+            android:id="@+id/btnRandomize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onReplaceFragmentClick"
+            android:src="@drawable/ic_action_reload"
+            android:text="Randomize"
+            android:textAllCaps="false" />
+    </LinearLayout>
+</layout>
+
+    <!--android:layout_marginStart="8dp"--><!--android:layout_marginEnd="8dp"--><!--android:layout_marginRight="8dp"--><!--android:layout_marginBottom="8dp"-->
