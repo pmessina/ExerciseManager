@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/exerciseId"
-            android:text="@{exerciseRecord.id}"
+            android:text="@{String.valueOf(exerciseRecord.id)}"
             />
         <TextView
             android:id="@+id/tvName"

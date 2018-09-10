@@ -2,9 +2,9 @@ package com.pirateman.exercisemanager.exercise;
 
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -19,17 +19,12 @@ import android.view.View;
 import com.pirateman.exercisemanager.R;
 import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBinding;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import io.apptik.widget.MultiSlider;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -152,44 +147,54 @@ public class ExerciseActivity extends AppCompatActivity {
 
     public void setUpExerciseObservable() {
 
-        Observable<List<Exercise>> exerciseObservable = Observable.fromCallable(new Callable<List<Exercise>>() {
+        LiveData<List<Exercise>> exercises = dao.getAll();
+        exercises.observe(this, new android.arch.lifecycle.Observer<List<Exercise>>() {
             @Override
-            public List<Exercise> call() {
-
-                List<Exercise> exercises = new ArrayList<>();
-
-                try {
-                    exercises = dao.getAll();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-                return exercises;
+            public void onChanged(@Nullable List<Exercise> exercises) {
+                setUpExerciseAdapter(ExerciseActivity.this, exercises);
             }
         });
-        exerciseObservable
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Exercise>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
 
-                    @Override
-                    public void onNext(List<Exercise> exercise) {
-                        setUpExerciseAdapter(ExerciseActivity.this, exercise);
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e("ExerciseObservable", e.getMessage());
 
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+//        Observable<List<Exercise>> exerciseObservable = Observable.fromCallable(new Callable<List<Exercise>>() {
+//            @Override
+//            public List<Exercise> call() {
+//
+//
+//
+//                try {
+//                    exercises = dao.getAll();
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//
+//                return exercises;
+//            }
+//        });
+//        exerciseObservable
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<List<Exercise>>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                    }
+//
+//                    @Override
+//                    public void onNext(List<Exercise> exercise) {
+//                        setUpExerciseAdapter(ExerciseActivity.this, exercise);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Log.e("ExerciseObservable", e.getMessage());
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                    }
+//                });
 
     }
 

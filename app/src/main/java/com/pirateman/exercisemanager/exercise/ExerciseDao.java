@@ -16,7 +16,7 @@ public interface ExerciseDao
     LiveData<Exercise> getExerciseByName(String name);
 
     @Query("select * from exercise")
-    List<Exercise> getAll();
+    LiveData<List<Exercise>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertExercise(Exercise exercise);

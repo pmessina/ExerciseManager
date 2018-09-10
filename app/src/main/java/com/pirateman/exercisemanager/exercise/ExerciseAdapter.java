@@ -1,10 +1,13 @@
 package com.pirateman.exercisemanager.exercise;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -107,21 +110,43 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                 int position = this.getAdapterPosition();
 
                 ExerciseDatabase database = ExerciseDatabase.getINSTANCE(context);
+                //RecyclerViewExerciseItemBindingImpl binding = DataBindingUtil.findBinding(view);
+//
+//                LiveData<List<Exercise>> exercises = database.exerciseDao().getAll();
+//
+//                exercises.observe((AppCompatActivity) context, new Observer<List<Exercise>>() {
+//                    @Override
+//                    public void onChanged(@Nullable List<Exercise> exercises) {
+//                        for(Exercise e: exercises)
+//                        {
+//
+//                        }
+//                    }
+//                });
+                TextView v = view.findViewById(R.id.exerciseId);
+                String str =  v.getText().toString();
 
-                LiveData<Exercise> exercise = database.exerciseDao().getExerciseById(position);
+                int id = Integer.valueOf(str);
 
+                LiveData<Exercise> exercise = database.exerciseDao().getExerciseById(id);
 
+                exercise.observe((AppCompatActivity) context, new Observer<Exercise>() {
+                    @Override
+                    public void onChanged(@Nullable Exercise exercise) {
+                        Toast.makeText(context, exercise != null ? exercise.toString() : "Exercise is null", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-
-
-
-                //Toast.makeText(context, exercise.getValue().toString(), Toast.LENGTH_SHORT).show();
 
                 //Get Exercise value clicked
 
 
                 return true;
             }
+
+            Toast.makeText(context, "view not selectable", Toast.LENGTH_SHORT).show();
+
+
             return false;
         }
     }
