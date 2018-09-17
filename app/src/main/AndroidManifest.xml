@@ -41,7 +41,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".exercise.IntervalActivity"></activity>
+        <activity android:name=".exercise.IntervalActivity" />
+        <activity
+            android:name=".exercise.WorkoutActivity"
+            android:label="@string/title_activity_workout"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

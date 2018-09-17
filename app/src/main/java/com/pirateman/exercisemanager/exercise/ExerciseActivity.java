@@ -29,9 +29,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ExerciseActivity extends AppCompatActivity {
+public class ExerciseActivity extends AppCompatActivity implements OnAddExerciseListener  {
 
     private RecyclerView view;
+    private RecyclerView selectedExercisesView;
     private ExerciseAdapter exerciseAdapter;
 
     private ExerciseDao dao;
@@ -50,6 +51,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
 
         view = findViewById(R.id.rvExerciseList);
+        selectedExercisesView = findViewById(R.id.rvSelectedExercises);
 
         exerciseAdapter = new ExerciseAdapter(this);
 
@@ -213,4 +215,14 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void AddExercise(Exercise exercise) {
+        ExerciseAdapter adapter = new ExerciseAdapter(this);
+
+        selectedExercisesView.setHasFixedSize(true);
+        selectedExercisesView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter.setExercise(exercise);
+        selectedExercisesView.setAdapter(adapter);
+    }
 }

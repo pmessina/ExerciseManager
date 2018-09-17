@@ -24,19 +24,22 @@ import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBinding
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder> {
+public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder>{
 
     List<Exercise> exerciseList;
 
     private MultiSelector multiSelector;
 
-
     Context context;
+
+    OnAddExerciseListener listener;
+
 
     public ExerciseAdapter(Context context) {
         exerciseList = new ArrayList<>();
         multiSelector = new MultiSelector();
         this.context = context;
+        listener = (OnAddExerciseListener)context;
     }
 
     public ExerciseAdapter(List<Exercise> exerciseList) {
@@ -133,9 +136,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                 exercise.observe((AppCompatActivity) context, new Observer<Exercise>() {
                     @Override
                     public void onChanged(@Nullable Exercise exercise) {
+
+                        listener.AddExercise(exercise);
                         Toast.makeText(context, exercise != null ? exercise.toString() : "Exercise is null", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
 
 
                 //Get Exercise value clicked

@@ -19,19 +19,25 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvExerciseList"
         android:layout_width="395dp"
-        android:layout_height="300dp" >
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="276dp"></android.support.v7.widget.RecyclerView>
 
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Selected Exercises" />
+        android:text="Selected Exercises"
+        android:layout_margin="8dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvSelectedExercises"
         android:layout_width="395dp"
-        android:layout_height="587dp" />
+        android:layout_height="200dp"></android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit" />
 
 </LinearLayout>

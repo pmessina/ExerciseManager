@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ExerciseManager</string>
     <string name="title_activity_exercise">ExerciseActivity</string>
+    <string name="title_activity_workout">WorkoutActivity</string>
 </resources>
