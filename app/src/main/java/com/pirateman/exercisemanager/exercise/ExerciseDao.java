@@ -24,8 +24,8 @@ public interface ExerciseDao
     @Query("select * from exercise where id = :id")
     LiveData<Exercise> getExerciseById(int id);
 
-    @Delete
-    void removeExercise(Exercise exercise);
+    @Query("DELETE FROM exercise WHERE id = :id")
+    void removeExercise(int id);
 
     @Insert
     void insertInterval(Interval interval);

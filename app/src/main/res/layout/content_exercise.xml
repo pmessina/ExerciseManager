@@ -16,6 +16,13 @@
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"/>-->
 
+    <TextView
+        android:id="@+id/tvAvailableExercises"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available Exercises"
+        android:layout_margin="8dp"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvExerciseList"
         android:layout_width="395dp"
@@ -23,7 +30,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvSelectedExercises"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Selected Exercises"

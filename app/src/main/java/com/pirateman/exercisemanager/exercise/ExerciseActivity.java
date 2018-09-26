@@ -29,14 +29,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ExerciseActivity extends AppCompatActivity implements OnAddExerciseListener  {
+public class ExerciseActivity extends AppCompatActivity implements OnAddExerciseListener, OnDeleteExerciseListener
+{
 
-    private RecyclerView view;
+    private RecyclerView recyclerView;
     private RecyclerView selectedExercisesView;
-    private ExerciseAdapter exerciseAdapter;
 
     private ExerciseDao dao;
 
+    private ExerciseAdapter exerciseAdapter;
+    private ExerciseAdapter selectedExercisesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +47,22 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //testDataBindingInflater();
-
         dao = ExerciseDatabase.getINSTANCE(ExerciseActivity.this).exerciseDao();
 
+        recyclerView = findViewById(R.id.rvExerciseList);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        view = findViewById(R.id.rvExerciseList);
         selectedExercisesView = findViewById(R.id.rvSelectedExercises);
+        selectedExercisesView.setHasFixedSize(true);
+        selectedExercisesView.setLayoutManager(new LinearLayoutManager(this));
 
         exerciseAdapter = new ExerciseAdapter(this);
 
-        setUpExerciseObservable();
+        selectedExercisesAdapter = new ExerciseAdapter(this);
 
+
+        setUpExerciseObservable();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,31 +76,31 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
                         return insertExercise();
                     }
                 });
-                insert
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<Exercise>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                        }
+                insert.subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<Exercise>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
 
-                        @Override
-                        public void onNext(Exercise s) {
-                            Snackbar.make(view, s.toString(), Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                            exerciseAdapter.setExercise(s);
-                        }
+                            @Override
+                            public void onNext(Exercise s) {
+                                Snackbar.make(view, s.toString(), Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+                                exerciseAdapter.setExercise(s);
+                            }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e("InsertExercise", e.getMessage());
-                        }
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e("InsertExercise", e.getMessage());
+                            }
 
-                        @Override
-                        public void onComplete() {
+                            @Override
+                            public void onComplete() {
 
-                        }
-                    });
+                            }
+                        });
+
 
             }
         });
@@ -107,11 +113,14 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         e1.setMuscleGroup("Quads");
         e1.setName("Squats");
 
-
         dao.insertExercise(e1);
 
         return e1;
     }
+
+
+
+
 
     public void testDataBindingContentView() {
 
@@ -134,8 +143,6 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
 
         //ft.replace(R.id.llExerciseList, fragment);
         ft.commit();
-
-
     }
 
     public List<Exercise> testExerciseData() {
@@ -150,79 +157,36 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
     public void setUpExerciseObservable() {
 
         LiveData<List<Exercise>> exercises = dao.getAll();
-        exercises.observe(this, new android.arch.lifecycle.Observer<List<Exercise>>() {
+        exercises.observe(ExerciseActivity.this, new android.arch.lifecycle.Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable List<Exercise> exercises) {
                 setUpExerciseAdapter(ExerciseActivity.this, exercises);
             }
         });
 
-
-
-//        Observable<List<Exercise>> exerciseObservable = Observable.fromCallable(new Callable<List<Exercise>>() {
-//            @Override
-//            public List<Exercise> call() {
-//
-//
-//
-//                try {
-//                    exercises = dao.getAll();
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//
-//                return exercises;
-//            }
-//        });
-//        exerciseObservable
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<List<Exercise>>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//                    }
-//
-//                    @Override
-//                    public void onNext(List<Exercise> exercise) {
-//                        setUpExerciseAdapter(ExerciseActivity.this, exercise);
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        Log.e("ExerciseObservable", e.getMessage());
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//                    }
-//                });
-
     }
 
     public void setUpExerciseAdapter(Context context, List<Exercise> exercises) {
-        ////        List<Exercise> exercises = new ArrayList<>();
-////        exercises.add(exercise);
-
-        view.setHasFixedSize(true);
-
-        view.setLayoutManager(new LinearLayoutManager(context));
-        //Log.i("ExerciseObservable", exercise.toString());
-        //exerciseAdapter.setExerciseList(exercise);
-        //for Testing
         exerciseAdapter.setExerciseList(exercises);
-        view.setAdapter(exerciseAdapter);
+        recyclerView.setAdapter(exerciseAdapter);
     }
 
 
     @Override
     public void AddExercise(Exercise exercise) {
-        ExerciseAdapter adapter = new ExerciseAdapter(this);
+        selectedExercisesAdapter.setExercise(exercise);
+        selectedExercisesView.setAdapter(selectedExercisesAdapter);
+    }
 
-        selectedExercisesView.setHasFixedSize(true);
-        selectedExercisesView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter.setExercise(exercise);
-        selectedExercisesView.setAdapter(adapter);
+    @Override
+    public void deleteExercise(int id) {
+        exerciseAdapter.removeExercise(id);
+        recyclerView.setAdapter(exerciseAdapter);
     }
 }
+
+
+
+
+
