@@ -9,9 +9,15 @@
     </data>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:clickable="true"
         android:focusable="true"> <!-- android:onClick="@{(view) -> onClick(view)}"-->
 
@@ -19,8 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/exerciseId"
-            android:text="@{String.valueOf(exerciseRecord.id)}"
-            />
+            android:text="@{String.valueOf(exerciseRecord.id)}" />
         <TextView
             android:id="@+id/tvName"
             android:layout_width="match_parent"
@@ -42,5 +47,14 @@
             android:hint="Method"
             android:text="@{exerciseRecord.method}" />
 
+    </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_more_vert"
+            />
     </LinearLayout>
 </layout>
