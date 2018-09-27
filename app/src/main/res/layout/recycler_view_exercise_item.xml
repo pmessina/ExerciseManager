@@ -9,52 +9,53 @@
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:orientation="horizontal">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:clickable="true"
-        android:focusable="true"> <!-- android:onClick="@{(view) -> onClick(view)}"-->
-
-        <TextView android:visibility="gone"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:id="@+id/exerciseId"
-            android:text="@{String.valueOf(exerciseRecord.id)}" />
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="316dp"
             android:layout_height="wrap_content"
-            android:hint="Name"
-            android:text="@{exerciseRecord.name}" />
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"> <!-- android:onClick="@{(view) -> onClick(view)}"-->
 
-        <TextView
-            android:id="@+id/tvMuscleGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Muscle Group"
-            android:text="@{exerciseRecord.muscleGroup}" />
+            <TextView
+                android:id="@+id/exerciseId"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@{String.valueOf(exerciseRecord.id)}"
+                android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/tvMethod"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Method"
-            android:text="@{exerciseRecord.method}" />
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:text="@{exerciseRecord.name}" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvMuscleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Muscle Group"
+                android:text="@{exerciseRecord.muscleGroup}" />
+
+            <TextView
+                android:id="@+id/tvMethod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Method"
+                android:text="@{exerciseRecord.method}" />
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_more_vert"
-            />
+            android:layout_gravity="end"
+            app:srcCompat="@drawable/ic_more_vert" />
     </LinearLayout>
 </layout>

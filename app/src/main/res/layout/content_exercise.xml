@@ -25,8 +25,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvExerciseList"
-        android:layout_width="395dp"
-        android:layout_height="276dp"></android.support.v7.widget.RecyclerView>
+        android:layout_width="match_parent"
+        android:layout_height="276dp" />
 
 
     <TextView
@@ -38,8 +38,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvSelectedExercises"
-        android:layout_width="395dp"
-        android:layout_height="200dp"></android.support.v7.widget.RecyclerView>
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 
     <Button
         android:id="@+id/btnSubmit"

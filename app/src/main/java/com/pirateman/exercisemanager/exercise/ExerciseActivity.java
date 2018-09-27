@@ -14,7 +14,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.pirateman.exercisemanager.R;
 import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBinding;
@@ -31,7 +34,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ExerciseActivity extends AppCompatActivity implements OnAddExerciseListener, OnDeleteExerciseListener
 {
-
     private RecyclerView recyclerView;
     private RecyclerView selectedExercisesView;
 
@@ -52,6 +54,8 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         recyclerView = findViewById(R.id.rvExerciseList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //TODO: Implement click listener for button and recyclerview row
+        recyclerView.addOnItemTouchListener(new ExerciseTouchListener(this, recyclerView));
 
         selectedExercisesView = findViewById(R.id.rvSelectedExercises);
         selectedExercisesView.setHasFixedSize(true);
@@ -61,14 +65,12 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
 
         selectedExercisesAdapter = new ExerciseAdapter(this);
 
-
         setUpExerciseObservable();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-
 
                 Observable<Exercise> insert = Observable.fromCallable(new Callable<Exercise>() {
                     @Override
@@ -100,8 +102,6 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
 
                             }
                         });
-
-
             }
         });
     }
@@ -117,10 +117,6 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
 
         return e1;
     }
-
-
-
-
 
     public void testDataBindingContentView() {
 
@@ -184,8 +180,9 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         exerciseAdapter.removeExercise(id);
         recyclerView.setAdapter(exerciseAdapter);
     }
-}
 
+
+}
 
 
 

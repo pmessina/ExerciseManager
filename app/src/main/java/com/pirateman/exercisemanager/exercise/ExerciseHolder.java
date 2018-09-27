@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SwappingHolder;
 import com.pirateman.exercisemanager.R;
+import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBinding;
 import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBindingImpl;
 
 import java.util.concurrent.Executor;
@@ -101,15 +103,15 @@ import java.util.concurrent.Executors;
 //        return false;
 //    }
 //}
-public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
+public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, RecyclerView.OnItemTouchListener
 {
-    private RecyclerViewExerciseItemBindingImpl binding;
+    private RecyclerViewExerciseItemBinding binding;
     private Context context;
 
-    OnAddExerciseListener listener;
-    OnDeleteExerciseListener deleteListener;
+    private OnAddExerciseListener listener;
+    private OnDeleteExerciseListener deleteListener;
 
-    public ExerciseHolder(Context context, RecyclerViewExerciseItemBindingImpl binding)
+    public ExerciseHolder(Context context, RecyclerViewExerciseItemBinding binding)
     {
         super(binding.getRoot());
         this.binding = binding;
@@ -123,6 +125,7 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
     }
 
     public void bind(Exercise exercise) {
+
         binding.setExerciseRecord(exercise);
     }
 
@@ -169,6 +172,21 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
 
 //        ExerciseAdapter adapter = new ExerciseAdapter(context);
 //        adapter.removeExercise(id);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        Toast.makeText(context, "Touch Event", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
     }
 
     class ExerciseRunnable implements Runnable
