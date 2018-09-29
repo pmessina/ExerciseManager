@@ -129,26 +129,27 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
         binding.setExerciseRecord(exercise);
     }
 
+    //TODO:move to touchlistener
     @Override
     public void onClick(View view)
     {
-        ExerciseDatabase database = ExerciseDatabase.getINSTANCE(context);
-
-        TextView v = view.findViewById(R.id.exerciseId);
-        String str =  v.getText().toString();
-
-        int id = Integer.valueOf(str);
-
-        LiveData<Exercise> exercise = database.exerciseDao().getExerciseById(id);
-
-        exercise.observe((AppCompatActivity) context, new Observer<Exercise>() {
-            @Override
-            public void onChanged(@Nullable Exercise exercise) {
-
-                listener.AddExercise(exercise);
-                Toast.makeText(context, exercise != null ? exercise.toString() : "Exercise is null", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        ExerciseDatabase database = ExerciseDatabase.getINSTANCE(context);
+//
+//        TextView v = view.findViewById(R.id.exerciseId);
+//        String str =  v.getText().toString();
+//
+//        int id = Integer.valueOf(str);
+//
+//        LiveData<Exercise> exercise = database.exerciseDao().getExerciseById(id);
+//
+//        exercise.observe((AppCompatActivity) context, new Observer<Exercise>() {
+//            @Override
+//            public void onChanged(@Nullable Exercise exercise) {
+//
+//                listener.AddExercise(exercise);
+//                Toast.makeText(context, exercise != null ? exercise.toString() : "Exercise is null", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 

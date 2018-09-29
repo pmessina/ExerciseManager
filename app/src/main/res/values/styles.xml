@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="multiSliderStyle">@style/Widget.MultiSlider</item>
+        <item name="popupMenuStyle">@style/MyPopupMenu</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -19,5 +20,11 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Widget.MultiSlider" parent="android:Widget" />
+
+    <style name="MyPopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:dropDownHorizontalOffset">-16dp</item>
+        <item name="android:dropDownVerticalOffset">-16dp</item>
+        <item name="android:background">#AAAAAA</item>
+    </style>
 
 </resources>

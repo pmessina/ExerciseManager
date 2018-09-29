@@ -12,10 +12,11 @@
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="316dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
@@ -52,10 +53,12 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/imgOptions"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
+            android:layout_marginLeft="15dp"
+            android:background="@color/transparent"
             app:srcCompat="@drawable/ic_more_vert" />
     </LinearLayout>
 </layout>
