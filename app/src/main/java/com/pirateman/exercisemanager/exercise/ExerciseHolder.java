@@ -116,30 +116,17 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
         super(binding.getRoot());
         this.binding = binding;
         this.context = context;
-        binding.getRoot().setClickable(true);
-        binding.getRoot().setOnClickListener(this);
-        binding.getRoot().setLongClickable(true);
-        binding.getRoot().setOnLongClickListener(this);
-        listener = (OnAddExerciseListener)context;
+
+        binding.cvExerciseItem.setOnClickListener(this);
+        binding.cvExerciseItem.setLongClickable(true);
+        binding.cvExerciseItem.setOnLongClickListener(this);
+
+        binding.imgOptions.setOnClickListener(this);
+        binding.imgOptions.setLongClickable(true);
+        binding.imgOptions.setOnLongClickListener(this);
+
+        listener = (OnAddExerciseListener) context;
         deleteListener = (OnDeleteExerciseListener) context;
-
-        binding.cvExerciseItem.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Toast.makeText(context, "CardView View Holder clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        binding.imgOptions.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Toast.makeText(context, "Image Button clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     public void bind(Exercise exercise) {
@@ -151,7 +138,15 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
     public void onClick(View view)
     {
-        Toast.makeText(context, view.toString(), Toast.LENGTH_SHORT).show();
+        switch(view.getId())
+        {
+            case R.id.imgOptions:
+                Toast.makeText(context, "CardView View Holder clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.cvExerciseItem:
+                Toast.makeText(context, "Image Button clicked", Toast.LENGTH_SHORT).show();
+                break;
+        }
 //        ExerciseDatabase database = ExerciseDatabase.getINSTANCE(context);
 //
 //        TextView v = view.findViewById(R.id.exerciseId);
