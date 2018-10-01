@@ -27,6 +27,8 @@ import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBinding
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -36,7 +38,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
-public class ExerciseActivity extends AppCompatActivity implements OnAddExerciseListener, OnDeleteExerciseListener
+public class ExerciseActivity extends AppCompatActivity implements OnAddExerciseListener, OnDeleteExerciseListener, OnUpdateExerciseListener
 {
     private RecyclerView recyclerView;
     private RecyclerView selectedExercisesView;
@@ -184,7 +186,31 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         exerciseAdapter.removeExercise(id);
         recyclerView.setAdapter(exerciseAdapter);
     }
+    @Override
+    public void updateExercise(Exercise exercise) {
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(new EditExerciseRunnable(exercise));
 
+        exerciseAdapter.updateExercise(exercise.getId());
+    }
+
+    class EditExerciseRunnable implements Runnable
+    {
+        private Exercise exercise;
+
+        public EditExerciseRunnable(Exercise exercise)
+        {
+            this.exercise = exercise;
+        }
+
+        @Override
+        public void run() {
+            ExerciseDatabase database = ExerciseDatabase.getINSTANCE(ExerciseActivity.this);
+            database.exerciseDao().updateExercise(exercise);
+
+            Log.i("RemoveExercise", "Update successful");
+        }
+    }
 
 }
 

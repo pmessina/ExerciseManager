@@ -6,6 +6,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -24,8 +25,11 @@ public interface ExerciseDao
     @Query("select * from exercise where id = :id")
     LiveData<Exercise> getExerciseById(int id);
 
-    @Query("DELETE FROM exercise WHERE id = :id")
+    @Query("delete from exercise WHERE id = :id")
     void removeExercise(int id);
+
+    @Update
+    void updateExercise(Exercise exercise);
 
     @Insert
     void insertInterval(Interval interval);

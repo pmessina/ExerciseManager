@@ -28,9 +28,15 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseHolder>{
         this.exerciseList = exerciseList;
     }
 
-    public void setExercise(Exercise exercise) {
+    public void setExercise(Exercise exercise)
+    {
         exerciseList.add(exercise);
         notifyDataSetChanged();
+    }
+
+    public void updateExercise(int id)
+    {
+        notifyItemChanged(id);
     }
 
     public void removeExercise(int id)
@@ -39,7 +45,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseHolder>{
         notifyDataSetChanged();
     }
 
-    public void setExerciseList(List<Exercise> exerciseList) {
+    public void setExerciseList(List<Exercise> exerciseList)
+    {
         this.exerciseList = exerciseList;
         notifyDataSetChanged();
     }
@@ -47,7 +54,6 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseHolder>{
     @NonNull
     @Override
     public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         RecyclerViewExerciseItemBindingImpl binding = DataBindingUtil.inflate(inflater, R.layout.recycler_view_exercise_item, parent, false);
 

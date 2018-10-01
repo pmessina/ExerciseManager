@@ -4,14 +4,10 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
-import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.pirateman.exercisemanager.R;
@@ -41,16 +37,6 @@ public class ExerciseTouchListener implements RecyclerView.OnItemTouchListener
                         Toast.makeText(context, String.valueOf(view), Toast.LENGTH_SHORT).show();
 
                     case R.id.imgOptions:
-                        ImageButton v = view.findViewById(R.id.imgOptions);
-
-                        if (v.hasOnClickListeners()) return;
-
-                        v.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                showPopUp(view);
-                            }
-                        });
                         break;
                     case R.id.cvExerciseItem:
                         CardView cv = view.findViewById(R.id.cvExerciseItem);
@@ -110,27 +96,6 @@ public class ExerciseTouchListener implements RecyclerView.OnItemTouchListener
 
     }
 
-    public void showPopUp(View view)
-    {
-        PopupMenu menu = new PopupMenu(context, view, Gravity.END, 0, R.style.MyPopupMenu);
-
-        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId())
-                {
-                    case R.id.delete_item:
-                        //Delete from Database
-                        Toast.makeText(context, "To be deleted", Toast.LENGTH_SHORT).show();
-                        break;
-
-                }
-                return false;
-            }
-        });
-        menu.inflate(R.menu.menu_options_exercise_row);
-        menu.show();
-    }
 
     static interface ClickListener {
         public void onClick(View view, int position);
