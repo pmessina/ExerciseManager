@@ -103,7 +103,7 @@ import java.util.concurrent.Executors;
 //        return false;
 //    }
 //}
-public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, RecyclerView.OnItemTouchListener
+public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
 {
     private RecyclerViewExerciseItemBinding binding;
     private Context context;
@@ -111,7 +111,7 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
     private OnAddExerciseListener listener;
     private OnDeleteExerciseListener deleteListener;
 
-    public ExerciseHolder(Context context, RecyclerViewExerciseItemBinding binding)
+    public ExerciseHolder(final Context context, RecyclerViewExerciseItemBinding binding)
     {
         super(binding.getRoot());
         this.binding = binding;
@@ -122,6 +122,24 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
         binding.getRoot().setOnLongClickListener(this);
         listener = (OnAddExerciseListener)context;
         deleteListener = (OnDeleteExerciseListener) context;
+
+        binding.cvExerciseItem.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Toast.makeText(context, "CardView View Holder clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        binding.imgOptions.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Toast.makeText(context, "Image Button clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void bind(Exercise exercise) {
@@ -133,6 +151,7 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
     public void onClick(View view)
     {
+        Toast.makeText(context, view.toString(), Toast.LENGTH_SHORT).show();
 //        ExerciseDatabase database = ExerciseDatabase.getINSTANCE(context);
 //
 //        TextView v = view.findViewById(R.id.exerciseId);
@@ -156,10 +175,10 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
     public boolean onLongClick(View view) {
 
-        TextView v = view.findViewById(R.id.exerciseId);
-        String str =  v.getText().toString();
-        int id = Integer.valueOf(str);
-        removeExercise(id);
+//        TextView v = view.findViewById(R.id.exerciseId);
+//        String str =  v.getText().toString();
+//        int id = Integer.valueOf(str);
+//        removeExercise(id);
 
         return true;
     }
@@ -173,21 +192,6 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
 
 //        ExerciseAdapter adapter = new ExerciseAdapter(context);
 //        adapter.removeExercise(id);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-        Toast.makeText(context, "Touch Event", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
     }
 
     class ExerciseRunnable implements Runnable

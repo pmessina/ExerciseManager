@@ -1,64 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
             name="exerciseRecord"
-            type="com.pirateman.exercisemanager.exercise.Exercise"/>
+            type="com.pirateman.exercisemanager.exercise.Exercise" />
     </data>
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvExerciseItem"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="horizontal">
+        app:cardCornerRadius="@dimen/cardview_default_radius"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical"> <!-- android:onClick="@{(view) -> onClick(view)}"-->
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/exerciseId"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="@{String.valueOf(exerciseRecord.id)}"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:hint="Name"
-                android:text="@{exerciseRecord.name}" />
+                android:orientation="vertical"> <!-- android:onClick="@{(view) -> onClick(view)}"-->
 
-            <TextView
-                android:id="@+id/tvMuscleGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Muscle Group"
-                android:text="@{exerciseRecord.muscleGroup}" />
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:text="@{exerciseRecord.name}" />
 
-            <TextView
-                android:id="@+id/tvMethod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Method"
-                android:text="@{exerciseRecord.method}" />
+                <TextView
+                    android:id="@+id/tvMuscleGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Muscle Group"
+                    android:text="@{exerciseRecord.muscleGroup}" />
 
+                <TextView
+                    android:id="@+id/tvMethod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Method"
+                    android:text="@{exerciseRecord.method}" />
+
+                <TextView
+                    android:id="@+id/exerciseId"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@{String.valueOf(exerciseRecord.id)}"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/imgOptions"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginLeft="15dp"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_more_vert" />
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/imgOptions"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_marginLeft="15dp"
-            android:background="@color/transparent"
-            app:srcCompat="@drawable/ic_more_vert" />
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <!--</LinearLayout>-->
 </layout>

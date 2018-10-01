@@ -3,6 +3,7 @@ package com.pirateman.exercisemanager.exercise;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
@@ -32,16 +33,35 @@ public class ExerciseTouchListener implements RecyclerView.OnItemTouchListener
             @Override
             public void onClick(View view, int position) {
 
-                ImageButton v = view.findViewById(R.id.imgOptions);
+                switch (view.getId())
+                {
+                    case R.id.tvMethod:
+                    case R.id.tvMuscleGroup:
+                    case R.id.tvName:
+                        Toast.makeText(context, String.valueOf(view), Toast.LENGTH_SHORT).show();
 
-                if (v.hasOnClickListeners()) return;
+                    case R.id.imgOptions:
+                        ImageButton v = view.findViewById(R.id.imgOptions);
 
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        showPopUp(view);
-                    }
-                });
+                        if (v.hasOnClickListeners()) return;
+
+                        v.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                showPopUp(view);
+                            }
+                        });
+                        break;
+                    case R.id.cvExerciseItem:
+                        CardView cv = view.findViewById(R.id.cvExerciseItem);
+                        cv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(context, "Card View clicked", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                }
 
                 //Toast.makeText(context, v.getText().toString(), Toast.LENGTH_LONG).show();
             }
@@ -63,7 +83,7 @@ public class ExerciseTouchListener implements RecyclerView.OnItemTouchListener
             public void onLongPress(MotionEvent e) {
                 View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
                 if (child != null) {
-                    clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                    clickListener.onLongClick(child, recyclerView.getChildAdapterPosition(child));
                 }
             }
         });
@@ -71,11 +91,11 @@ public class ExerciseTouchListener implements RecyclerView.OnItemTouchListener
 
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
         View child = rv.findChildViewUnder(e.getX(), e.getY());
 
-
         if (child != null && gestureDetector.onTouchEvent(e)) {
-            clickListener.onClick(child, rv.getChildPosition(child));
+            clickListener.onClick(child, rv.getChildAdapterPosition(child));
         }
         return false;
     }

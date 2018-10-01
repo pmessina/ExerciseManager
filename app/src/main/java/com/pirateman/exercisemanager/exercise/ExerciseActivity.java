@@ -3,8 +3,10 @@ package com.pirateman.exercisemanager.exercise;
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -32,6 +34,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
 public class ExerciseActivity extends AppCompatActivity implements OnAddExerciseListener, OnDeleteExerciseListener
 {
     private RecyclerView recyclerView;
@@ -55,7 +59,7 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //TODO: Implement click listener for button and recyclerview row
-        recyclerView.addOnItemTouchListener(new ExerciseTouchListener(this, recyclerView));
+        //recyclerView.addOnItemTouchListener(new ExerciseTouchListener(this, recyclerView));
 
         selectedExercisesView = findViewById(R.id.rvSelectedExercises);
         selectedExercisesView.setHasFixedSize(true);
