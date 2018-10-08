@@ -2,6 +2,7 @@ package com.pirateman.exercisemanager.exercise;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,13 +14,18 @@ import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBinding
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseHolder>{
+public class ExerciseAdapter extends RecyclerView.Adapter<BaseHolder>{
 
-    List<Exercise> exerciseList;
+    protected List<Exercise> exerciseList;
 
-    Context context;
+    protected Context context;
 
     public ExerciseAdapter(Context context) {
+        exerciseList = new ArrayList<>();
+        this.context = context;
+    }
+
+    public ExerciseAdapter(Context context, @LayoutRes int layoutId) {
         exerciseList = new ArrayList<>();
         this.context = context;
     }
@@ -53,7 +59,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseHolder>{
 
     @NonNull
     @Override
-    public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         RecyclerViewExerciseItemBindingImpl binding = DataBindingUtil.inflate(inflater, R.layout.recycler_view_exercise_item, parent, false);
 
@@ -61,7 +67,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExerciseHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
         Exercise item = exerciseList.get(position);
         holder.bind(item);
     }

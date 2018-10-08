@@ -16,7 +16,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.GestureDetector;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -69,7 +71,7 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
 
         exerciseAdapter = new ExerciseAdapter(this);
 
-        selectedExercisesAdapter = new ExerciseAdapter(this);
+        selectedExercisesAdapter = new SelectedExerciseAdapter(this);
 
         setUpExerciseObservable();
 
@@ -211,6 +213,7 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
             Log.i("RemoveExercise", "Update successful");
         }
     }
+
 
 }
 

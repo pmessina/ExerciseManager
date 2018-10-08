@@ -1,46 +1,37 @@
 package com.pirateman.exercisemanager.exercise;
 
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bignerdranch.android.multiselector.MultiSelector;
-import com.bignerdranch.android.multiselector.SwappingHolder;
 import com.pirateman.exercisemanager.R;
 import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBinding;
-import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBindingImpl;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
+public class ExerciseHolder extends BaseHolder implements View.OnClickListener,
+        View.OnLongClickListener, View.OnCreateContextMenuListener
 {
     private RecyclerViewExerciseItemBinding binding;
-    private Context context;
 
     private OnAddExerciseListener listener;
     private OnDeleteExerciseListener deleteListener;
+    private PopupMenu menu;
 
-    public ExerciseHolder(final Context context, RecyclerViewExerciseItemBinding binding)
+
+    public ExerciseHolder(Context context, RecyclerViewExerciseItemBinding binding)
     {
-        super(binding.getRoot());
+        super(context, binding);
         this.binding = binding;
-        this.context = context;
-
         binding.cvExerciseItem.setOnClickListener(this);
         binding.cvExerciseItem.setLongClickable(true);
         binding.cvExerciseItem.setOnLongClickListener(this);
@@ -51,8 +42,12 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
 
         listener = (OnAddExerciseListener) context;
         deleteListener = (OnDeleteExerciseListener) context;
+
+
     }
 
+
+    //Set Exercise in adapter
     public void bind(Exercise exercise) {
 
         binding.setExerciseRecord(exercise);
@@ -61,11 +56,21 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
     public void onClick(View view)
     {
+        view.setOnCreateContextMenuListener(this);
+
         switch(view.getId())
         {
             case R.id.imgOptions:
-                ImageButton v = view.findViewById(R.id.imgOptions);
+
+                if (menu == null)
+                {
+                    menu = new PopupMenu(context, view, Gravity.END, 0, R.style.MyPopupMenu);
+                    menu.inflate(R.menu.menu_options_exercise_row);
+                }
                 showPopUp(view);
+//
+
+
                 break;
             case R.id.cvExerciseItem:
                 listener.AddExercise(binding.getExerciseRecord());
@@ -116,12 +121,9 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
 
 
 
-
-
-
     public void showPopUp(View view)
     {
-        PopupMenu menu = new PopupMenu(context, view, Gravity.END, 0, R.style.MyPopupMenu);
+        menu.show();
 
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -130,8 +132,12 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
                 {
                     case R.id.delete_item:
                         //Delete from Database
-                        Toast.makeText(context, "To be deleted", Toast.LENGTH_SHORT).show();
-                        break;
+
+                        int id = Integer.valueOf(binding.exerciseId.getText().toString());
+                        removeExercise(id);
+
+                        menu.dismiss();
+                        return true;
                     case R.id.edit_item:
                         String tvMethod = binding.tvMethod.getText().toString();
                         String tvMuscleGroup = binding.tvMuscleGroup.getText().toString();
@@ -143,14 +149,40 @@ public class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnCl
                         intent.putExtra("tvName", tvName);
 
                         context.startActivity(intent);
-                        break;
+
+                        menu.dismiss();
+                        return true;
                 }
+
+
+
                 return false;
             }
         });
-        menu.inflate(R.menu.menu_options_exercise_row);
-        menu.show();
+
+
+
     }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        menu.setHeaderTitle("Exercise Options");
+        menu.add("Edit");
+        menu.add("Delete");
+    }
+
+
+
+//    @Override
+//    public boolean onContextClick(MenuItem item)
+//    {
+//        Toast.makeText(this, "Item Selected", Toast.LENGTH_SHORT).show();
+//
+//        return super.onContextItemSelected(item);
+//    }
+
 
     class ExerciseRunnable implements Runnable
     {
