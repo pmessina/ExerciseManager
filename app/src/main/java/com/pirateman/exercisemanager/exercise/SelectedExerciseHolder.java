@@ -2,14 +2,13 @@ package com.pirateman.exercisemanager.exercise;
 
 import android.content.Context;
 
-import com.pirateman.exercisemanager.databinding.RecyclerViewSelectedExerciseItemBinding;
-import com.pirateman.exercisemanager.databinding.RecyclerViewSelectedExerciseItemBindingImpl;
+import com.pirateman.exercisemanager.databinding.SelectedExerciseItemBinding;
 
 public class SelectedExerciseHolder extends BaseHolder
 {
-    private RecyclerViewSelectedExerciseItemBinding binding;
+    private SelectedExerciseItemBinding binding;
 
-    public SelectedExerciseHolder(final Context context, RecyclerViewSelectedExerciseItemBindingImpl binding)
+    public SelectedExerciseHolder(final Context context, SelectedExerciseItemBinding binding)
     {
         super(context, binding);
         this.binding = binding;
