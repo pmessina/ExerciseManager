@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.pirateman.exercisemanager.R;
 
-
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
 public class ExerciseTouchListener implements RecyclerView.OnItemTouchListener
 {
@@ -97,10 +96,10 @@ public class ExerciseTouchListener implements RecyclerView.OnItemTouchListener
     }
 
 
-    static interface ClickListener {
-        public void onClick(View view, int position);
+    interface ClickListener {
+        void onClick(View view, int position);
 
-        public void onLongClick(View view, int position);
+        void onLongClick(View view, int position);
     }
 
 }
