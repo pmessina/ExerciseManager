@@ -2,11 +2,9 @@ package com.pirateman.exercisemanager.exercise;
 
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -16,16 +14,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.GestureDetector;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.pirateman.exercisemanager.R;
-import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBinding;
+import com.pirateman.exercisemanager.databinding.ExerciseItemBinding;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -39,8 +33,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
-public class ExerciseActivity extends AppCompatActivity implements OnAddExerciseListener, OnDeleteExerciseListener, OnUpdateExerciseListener
+//@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
+public class ExerciseActivity extends AppCompatActivity implements
+        OnAddExerciseListener, OnDeleteExerciseListener, OnUpdateExerciseListener, View.OnClickListener
 {
     private RecyclerView recyclerView;
     private RecyclerView selectedExercisesView;
@@ -50,8 +45,10 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
     private ExerciseAdapter exerciseAdapter;
     private ExerciseAdapter selectedExercisesAdapter;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -76,37 +73,46 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         setUpExerciseObservable();
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(final View view) {
+            public void onClick(final View view)
+            {
 
-                Observable<Exercise> insert = Observable.fromCallable(new Callable<Exercise>() {
+                Observable<Exercise> insert = Observable.fromCallable(new Callable<Exercise>()
+                {
                     @Override
-                    public Exercise call() throws Exception {
+                    public Exercise call() throws Exception
+                    {
                         return insertExercise();
                     }
                 });
                 insert.subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<Exercise>() {
+                        .subscribe(new Observer<Exercise>()
+                        {
                             @Override
-                            public void onSubscribe(Disposable d) {
+                            public void onSubscribe(Disposable d)
+                            {
                             }
 
                             @Override
-                            public void onNext(Exercise s) {
+                            public void onNext(Exercise s)
+                            {
                                 Snackbar.make(view, s.toString(), Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
                                 exerciseAdapter.setExercise(s);
                             }
 
                             @Override
-                            public void onError(Throwable e) {
+                            public void onError(Throwable e)
+                            {
                                 Log.e("InsertExercise", e.getMessage());
                             }
 
                             @Override
-                            public void onComplete() {
+                            public void onComplete()
+                            {
 
                             }
                         });
@@ -114,7 +120,8 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         });
     }
 
-    public Exercise insertExercise() {
+    public Exercise insertExercise()
+    {
         //  ExerciseDao dao = ExerciseDatabase.getINSTANCE(ExerciseActivity.this).exerciseDao();
         Exercise e1 = new Exercise();
         e1.setMethod("Barbells");
@@ -126,9 +133,9 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         return e1;
     }
 
-    public void testDataBindingContentView() {
-
-        RecyclerViewExerciseItemBinding binding = DataBindingUtil.setContentView(this, R.layout.recycler_view_exercise_item);
+    public void testDataBindingContentView()
+    {
+        ExerciseItemBinding binding = DataBindingUtil.setContentView(this, R.layout.recycler_view_exercise_item);
 
         Exercise exercise = new Exercise();
         exercise.setName("Chest Press");
@@ -138,7 +145,8 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         binding.setExerciseRecord(exercise);
     }
 
-    public void testDataBindingInflater() {
+    public void testDataBindingInflater()
+    {
         //LinearLayout layout = findViewById(R.id.llExerciseList);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -149,7 +157,8 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         ft.commit();
     }
 
-    public List<Exercise> testExerciseData() {
+    public List<Exercise> testExerciseData()
+    {
         return Arrays.asList(
                 new Exercise("pull ups", "shoulders", "pull up bar"),
                 new Exercise("push ups", "shoulders", "bosu"),
@@ -158,42 +167,67 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         );
     }
 
-    public void setUpExerciseObservable() {
+    public void setUpExerciseObservable()
+    {
 
         LiveData<List<Exercise>> exercises = dao.getAll();
-        exercises.observe(ExerciseActivity.this, new android.arch.lifecycle.Observer<List<Exercise>>() {
+
+        exercises.observe(this, new android.arch.lifecycle.Observer<List<Exercise>>()
+        {
             @Override
-            public void onChanged(@Nullable List<Exercise> exercises) {
+            public void onChanged(List<Exercise> exercises)
+            {
                 setUpExerciseAdapter(ExerciseActivity.this, exercises);
             }
         });
 
     }
 
-    public void setUpExerciseAdapter(Context context, List<Exercise> exercises) {
+    public void setUpExerciseAdapter(Context context, List<Exercise> exercises)
+    {
         exerciseAdapter.setExerciseList(exercises);
         recyclerView.setAdapter(exerciseAdapter);
     }
 
-
     @Override
-    public void AddExercise(Exercise exercise) {
+    public void AddExercise(Exercise exercise)
+    {
         selectedExercisesAdapter.setExercise(exercise);
         selectedExercisesView.setAdapter(selectedExercisesAdapter);
     }
 
-
     @Override
-    public void deleteExercise(int id) {
+    public void deleteExercise(int id)
+    {
         exerciseAdapter.removeExercise(id);
         recyclerView.setAdapter(exerciseAdapter);
     }
+
     @Override
-    public void updateExercise(Exercise exercise) {
+    public void updateExercise(Exercise exercise)
+    {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(new EditExerciseRunnable(exercise));
 
         exerciseAdapter.updateExercise(exercise.getId());
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        ArrayList<Exercise> selectedExercises = new ArrayList<>(selectedExercisesAdapter.getExerciseList());
+
+
+        switch (view.getId())
+        {
+            case R.id.btnSubmit:
+                Intent intent = new Intent(this, IntervalActivity.class);
+                Bundle data = new Bundle();
+                data.putSerializable("selectedExercises", selectedExercises);
+
+                startActivity(intent);
+                break;
+        }
     }
 
     class EditExerciseRunnable implements Runnable
@@ -206,7 +240,8 @@ public class ExerciseActivity extends AppCompatActivity implements OnAddExercise
         }
 
         @Override
-        public void run() {
+        public void run()
+        {
             ExerciseDatabase database = ExerciseDatabase.getINSTANCE(ExerciseActivity.this);
             database.exerciseDao().updateExercise(exercise);
 
