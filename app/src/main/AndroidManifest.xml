@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.pirateman.exercisemanager">
 
-    <uses-sdk tools:overrideLibrary="io.apptik.widget.mslider" />
+    <uses-sdk tools:overrideLibrary="io.apptik.widget.mslider, com.thoughtbot.expandablerecyclerview"/>
 
     <application
         android:allowBackup="true"
@@ -15,21 +15,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ExercisePlannerActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".ExerciseCriteriaActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".exercise.ExerciseActivity"
@@ -46,7 +34,7 @@
             android:name=".exercise.WorkoutActivity"
             android:label="@string/title_activity_workout"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".exercise.ExerciseEditActivity"></activity>
+        <activity android:name=".exercise.ExerciseEditActivity"/>
     </application>
 
 </manifest>
