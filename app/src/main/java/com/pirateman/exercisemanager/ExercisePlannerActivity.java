@@ -1,27 +1,24 @@
 package com.pirateman.exercisemanager;
 
 import android.annotation.TargetApi;
-import android.databinding.ObservableArrayList;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayout;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.GridLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class ExercisePlannerActivity extends AppCompatActivity implements ActivityFragment.Callbacks {
 
     private  GridLayout layout;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,14 +145,12 @@ public class ExercisePlannerActivity extends AppCompatActivity implements Activi
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onReplaceFragmentClick(View v)
     {
         ExerciseInterval newInterval = new ExerciseInterval();
         replaceFragment(newInterval);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onAddFragmentClick(View v)
     {
         ExerciseInterval newInterval = new ExerciseInterval();
