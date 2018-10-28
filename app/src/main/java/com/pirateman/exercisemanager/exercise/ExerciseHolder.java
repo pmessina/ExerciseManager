@@ -3,17 +3,16 @@ package com.pirateman.exercisemanager.exercise;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+
 
 import com.pirateman.exercisemanager.R;
-import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBinding;
+import com.pirateman.exercisemanager.databinding.ExerciseItemBinding;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -21,14 +20,14 @@ import java.util.concurrent.Executors;
 public class ExerciseHolder extends BaseHolder implements View.OnClickListener,
         View.OnLongClickListener, View.OnCreateContextMenuListener
 {
-    private RecyclerViewExerciseItemBinding binding;
+    private ExerciseItemBinding binding;
 
     private OnAddExerciseListener listener;
     private OnDeleteExerciseListener deleteListener;
     private PopupMenu menu;
 
 
-    public ExerciseHolder(Context context, RecyclerViewExerciseItemBinding binding)
+    public ExerciseHolder(Context context, ExerciseItemBinding binding)
     {
         super(context, binding);
         this.binding = binding;
@@ -42,8 +41,6 @@ public class ExerciseHolder extends BaseHolder implements View.OnClickListener,
 
         listener = (OnAddExerciseListener) context;
         deleteListener = (OnDeleteExerciseListener) context;
-
-
     }
 
 
