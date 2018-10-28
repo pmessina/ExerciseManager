@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pirateman.exercisemanager.R;
-import com.pirateman.exercisemanager.databinding.RecyclerViewExerciseItemBindingImpl;
+import com.pirateman.exercisemanager.databinding.ExerciseItemBinding;
+
 
 public class ExerciseFragment extends Fragment
 {
@@ -18,7 +19,7 @@ public class ExerciseFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        RecyclerViewExerciseItemBindingImpl binding = DataBindingUtil.inflate(inflater, R.layout.recycler_view_exercise_item, container, false);
+        ExerciseItemBinding binding = DataBindingUtil.inflate(inflater, R.layout.recycler_view_exercise_item, container, false);
 
         Exercise exercise = new Exercise();
         exercise.setName("Chest Press");
