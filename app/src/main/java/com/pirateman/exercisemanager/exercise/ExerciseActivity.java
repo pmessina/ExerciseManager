@@ -3,7 +3,6 @@ package com.pirateman.exercisemanager.exercise;
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.pirateman.exercisemanager.R;
-import com.pirateman.exercisemanager.databinding.ExerciseItemBinding;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,10 +24,14 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -38,12 +40,12 @@ public class ExerciseActivity extends AppCompatActivity implements
         OnAddExerciseListener, OnDeleteExerciseListener, OnUpdateExerciseListener, View.OnClickListener
 {
     private RecyclerView recyclerView;
-    private RecyclerView selectedExercisesView;
+    //private RecyclerView selectedExercisesView;
 
     private ExerciseDao dao;
 
     private ExerciseAdapter exerciseAdapter;
-    private ExerciseAdapter selectedExercisesAdapter;
+    //private ExerciseAdapter selectedExercisesAdapter;
 
 
     @Override
@@ -57,67 +59,97 @@ public class ExerciseActivity extends AppCompatActivity implements
         dao = ExerciseDatabase.getINSTANCE(ExerciseActivity.this).exerciseDao();
 
         recyclerView = findViewById(R.id.rvExerciseList);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //TODO: Implement click listener for button and recyclerview row
         //recyclerView.addOnItemTouchListener(new ExerciseTouchListener(this, recyclerView));
 
-        selectedExercisesView = findViewById(R.id.rvSelectedExercises);
-        selectedExercisesView.setHasFixedSize(true);
-        selectedExercisesView.setLayoutManager(new LinearLayoutManager(this));
+//        selectedExercisesView = findViewById(R.id.rvSelectedExercises);
+//        selectedExercisesView.setHasFixedSize(true);
+//        selectedExercisesView.setLayoutManager(new LinearLayoutManager(this));
 
         exerciseAdapter = new ExerciseAdapter(this);
 
-        selectedExercisesAdapter = new SelectedExerciseAdapter(this);
+        //selectedExercisesAdapter = new SelectedExerciseAdapter(this);
 
         setUpExerciseObservable();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(final View view)
-            {
+        //clearTable();
 
-                Observable<Exercise> insert = Observable.fromCallable(new Callable<Exercise>()
-                {
+
+
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(final View view)
+//            {
+//
+//                Observable<Exercise> insert = Observable.fromCallable(new Callable<Exercise>()
+//                {
+//                    @Override
+//                    public Exercise call() throws Exception
+//                    {
+//                        return insertExercise();
+//                    }
+//                });
+//                insert.subscribeOn(Schedulers.newThread())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(new Observer<Exercise>()
+//                        {
+//                            @Override
+//                            public void onSubscribe(Disposable d)
+//                            {
+//                            }
+//
+//                            @Override
+//                            public void onNext(Exercise s)
+//                            {
+//                                Snackbar.make(view, s.toString(), Snackbar.LENGTH_LONG)
+//                                        .setAction("Action", null).show();
+//                                exerciseAdapter.setExercise(s);
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e)
+//                            {
+//                                Log.e("InsertExercise", e.getMessage());
+//                            }
+//
+//                            @Override
+//                            public void onComplete()
+//                            {
+//
+//                            }
+//                        });
+//            }
+//        });
+    }
+
+    private void clearTable()
+    {
+        Completable.fromAction(new Action() {
+            @Override
+            public void run() throws Exception {
+                ExerciseDatabase.getINSTANCE(ExerciseActivity.this).clearAllTables();
+            }
+        }).subscribeOn(Schedulers.newThread())
+                .subscribe(new Action() {
                     @Override
-                    public Exercise call() throws Exception
-                    {
-                        return insertExercise();
+                    public void run() throws Exception {
+                        Log.d("clearAllTables", "--- clearAllTables(): run() ---");
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.d("clearAllTables", "--- clearAllTables(): accept(Throwable throwable) ----");
+                        Log.d("throwableMessage", "throwable.getMessage(): "+throwable.getMessage());
+
+
                     }
                 });
-                insert.subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<Exercise>()
-                        {
-                            @Override
-                            public void onSubscribe(Disposable d)
-                            {
-                            }
-
-                            @Override
-                            public void onNext(Exercise s)
-                            {
-                                Snackbar.make(view, s.toString(), Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
-                                exerciseAdapter.setExercise(s);
-                            }
-
-                            @Override
-                            public void onError(Throwable e)
-                            {
-                                Log.e("InsertExercise", e.getMessage());
-                            }
-
-                            @Override
-                            public void onComplete()
-                            {
-
-                            }
-                        });
-            }
-        });
     }
 
     public Exercise insertExercise()
@@ -135,14 +167,14 @@ public class ExerciseActivity extends AppCompatActivity implements
 
     public void testDataBindingContentView()
     {
-        ExerciseItemBinding binding = DataBindingUtil.setContentView(this, R.layout.recycler_view_exercise_item);
+        //ExerciseItemBinding binding = DataBindingUtil.setContentView(this, R.layout.recycler_view_exercise_item);
 
         Exercise exercise = new Exercise();
         exercise.setName("Chest Press");
         exercise.setMuscleGroup("Chest");
         exercise.setMethod("Barbells");
 
-        binding.setExerciseRecord(exercise);
+        //binding.setExerciseRecord(exercise);
     }
 
     public void testDataBindingInflater()
@@ -169,7 +201,6 @@ public class ExerciseActivity extends AppCompatActivity implements
 
     public void setUpExerciseObservable()
     {
-
         LiveData<List<Exercise>> exercises = dao.getAll();
 
         exercises.observe(this, new android.arch.lifecycle.Observer<List<Exercise>>()
@@ -192,8 +223,8 @@ public class ExerciseActivity extends AppCompatActivity implements
     @Override
     public void AddExercise(Exercise exercise)
     {
-        selectedExercisesAdapter.setExercise(exercise);
-        selectedExercisesView.setAdapter(selectedExercisesAdapter);
+        //selectedExercisesAdapter.setExercise(exercise);
+        //selectedExercisesView.setAdapter(selectedExercisesAdapter);
     }
 
     @Override
@@ -215,19 +246,25 @@ public class ExerciseActivity extends AppCompatActivity implements
     @Override
     public void onClick(View view)
     {
-        ArrayList<Exercise> selectedExercises = new ArrayList<>(selectedExercisesAdapter.getExerciseList());
+        ArrayList<Exercise> exercises = exerciseAdapter.getSelectedExercises();
+
+        Intent intent = new Intent(this, SelectedExerciseActivity.class);
+        intent.putExtra("exercises", exercises);
+        startActivity(intent);
+
+        //ArrayList<Exercise> selectedExercises = new ArrayList<>(selectedExercisesAdapter.getExerciseList());
 
 
-        switch (view.getId())
-        {
-            case R.id.btnSubmit:
-                Intent intent = new Intent(this, IntervalActivity.class);
-                Bundle data = new Bundle();
-                data.putSerializable("selectedExercises", selectedExercises);
-
-                startActivity(intent);
-                break;
-        }
+//        switch (view.getId())
+//        {
+//            case R.id.btnSubmit:
+//                Intent intent = new Intent(this, IntervalActivity.class);
+//                Bundle data = new Bundle();
+//                data.putSerializable("selectedExercises", selectedExercises);
+//
+//                startActivity(intent);
+//                break;
+//        }
     }
 
     class EditExerciseRunnable implements Runnable

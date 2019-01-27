@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.pirateman.exercisemanager">
 
-    <uses-sdk tools:overrideLibrary="io.apptik.widget.mslider, com.thoughtbot.expandablerecyclerview"/>
+    <uses-sdk tools:overrideLibrary="io.apptik.widget.mslider, com.thoughtbot.expandablerecyclerview" />
 
     <application
         android:allowBackup="true"
@@ -13,12 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ExercisePlannerActivity">
-
+        <activity
+            android:name=".exercise.SelectedExerciseActivity"
+            android:label="@string/title_activity_selected_exercise"
+            android:parentActivityName=".exercise.ExerciseActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pirateman.exercisemanager.exercise.ExerciseActivity" />
         </activity>
-        <activity android:name=".ExerciseCriteriaActivity">
-
-        </activity>
+        <activity android:name=".ExercisePlannerActivity"></activity>
+        <activity android:name=".ExerciseCriteriaActivity"></activity>
         <activity
             android:name=".exercise.ExerciseActivity"
             android:label="@string/title_activity_exercise"
@@ -34,7 +39,7 @@
             android:name=".exercise.WorkoutActivity"
             android:label="@string/title_activity_workout"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".exercise.ExerciseEditActivity"/>
+        <activity android:name=".exercise.ExerciseEditActivity" />
     </application>
 
 </manifest>

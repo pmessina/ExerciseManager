@@ -34,4 +34,13 @@ public interface ExerciseDao
     @Insert
     void insertInterval(Interval interval);
 
+    @Insert
+    void insertAll(Exercise... exercises);
+
+    @Query("delete from exercise")
+    void removeAll();
+
+    @Query("SELECT COUNT('id') FROM exercise")
+    int getNumberOfRows();
+
 }

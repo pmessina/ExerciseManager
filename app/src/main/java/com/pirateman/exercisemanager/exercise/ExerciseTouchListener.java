@@ -3,14 +3,11 @@ package com.pirateman.exercisemanager.exercise;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
-
-import com.pirateman.exercisemanager.R;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
 public class ExerciseTouchListener implements RecyclerView.OnItemTouchListener
@@ -30,21 +27,21 @@ public class ExerciseTouchListener implements RecyclerView.OnItemTouchListener
 
                 switch (view.getId())
                 {
-                    case R.id.tvMethod:
-                    case R.id.tvMuscleGroup:
-                    case R.id.tvName:
-                        Toast.makeText(context, String.valueOf(view), Toast.LENGTH_SHORT).show();
-
-                    case R.id.imgOptions:
-                        break;
-                    case R.id.cvExerciseItem:
-                        CardView cv = view.findViewById(R.id.cvExerciseItem);
-                        cv.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Toast.makeText(context, "Card View clicked", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+//                    case R.id.tvMethod:
+//                    case R.id.tvMuscleGroup:
+//                    case R.id.tvName:
+//                        Toast.makeText(context, String.valueOf(view), Toast.LENGTH_SHORT).show();
+//
+//                    case R.id.imgOptions:
+//                        break;
+//                    case R.id.cvExerciseItem:
+//                        CardView cv = view.findViewById(R.id.cvExerciseItem);
+//                        cv.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                Toast.makeText(context, "Card View clicked", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
 
                 }
 

@@ -12,22 +12,28 @@ import com.pirateman.exercisemanager.databinding.ExerciseItemBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseAdapter extends RecyclerView.Adapter<BaseHolder>
+public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseHolder>
 {
 
     private List<Exercise> exerciseList;
 
+    private ArrayList<Integer> selectedExercisePositions;
+
     protected Context context;
+
+    private ExerciseHolder holder;
 
     public ExerciseAdapter(Context context)
     {
         exerciseList = new ArrayList<>();
+        selectedExercisePositions = new ArrayList<>();
         this.context = context;
     }
 
     public ExerciseAdapter(Context context, @LayoutRes int layoutId)
     {
         exerciseList = new ArrayList<>();
+        selectedExercisePositions = new ArrayList<>();
         this.context = context;
     }
 
@@ -66,25 +72,33 @@ public class ExerciseAdapter extends RecyclerView.Adapter<BaseHolder>
 
     @NonNull
     @Override
-    public BaseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ExerciseItemBinding binding = ExerciseItemBinding.inflate(inflater, parent, false);
 
-        return new ExerciseHolder(context, binding);
+
+        return new ExerciseHolder(binding, context);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseHolder holder, int position)
+    public void onBindViewHolder(@NonNull ExerciseHolder holder, int position)
     {
         Exercise item = exerciseList.get(position);
         holder.bind(item);
+
+        this.holder = holder;
     }
 
     @Override
     public int getItemCount()
     {
         return exerciseList.size();
+    }
+
+    public ArrayList<Exercise> getSelectedExercises()
+    {
+        return holder.getSelectedExercises();
     }
 
 }

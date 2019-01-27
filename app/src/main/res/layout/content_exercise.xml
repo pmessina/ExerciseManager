@@ -26,25 +26,32 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvExerciseList"
         android:layout_width="match_parent"
-        android:layout_height="250dp" />
-
-
-    <TextView
-        android:id="@+id/tvSelectedExercises"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Selected Exercises"
-        android:layout_margin="8dp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvSelectedExercises"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="525dp" />
 
     <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
+        android:id="@+id/button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit" />
+        android:onClick="onClick"
+        android:text="Ok" />
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/tvSelectedExercises"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Selected Exercises"-->
+        <!--android:layout_margin="8dp"/>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rvSelectedExercises"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/btnSubmit"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Submit" />-->
 
 </LinearLayout>

@@ -9,10 +9,11 @@ import android.view.View;
 
 import com.pirateman.exercisemanager.ExerciseInterval;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Exercise
+public class Exercise implements Serializable
 {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -74,5 +75,7 @@ public class Exercise
     public String toString() {
         return id + " " + name + " " + method + " " + muscleGroup;
     }
+
+
 
 }
