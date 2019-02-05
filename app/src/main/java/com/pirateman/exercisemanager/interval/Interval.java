@@ -1,9 +1,11 @@
-package com.pirateman.exercisemanager.exercise;
+package com.pirateman.exercisemanager.interval;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+
+import com.pirateman.exercisemanager.exercise.Exercise;
 
 @Entity(indices = @Index("exerciseId"), foreignKeys = @ForeignKey(entity = Exercise.class,
         parentColumns = "id",

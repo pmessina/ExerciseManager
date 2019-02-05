@@ -8,11 +8,11 @@ public abstract class BaseHolder extends RecyclerView.ViewHolder
 {
     protected Context context;
 
-    public BaseHolder(Context context, ViewDataBinding binding)
+    public BaseHolder(ViewDataBinding binding, Context context)
     {
         super(binding.getRoot());
         this.context = context;
     }
 
-    abstract void bind(Exercise exercise);
+    public abstract void bind(Exercise exercise);
 }

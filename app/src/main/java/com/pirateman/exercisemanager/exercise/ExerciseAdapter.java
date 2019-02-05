@@ -15,59 +15,42 @@ import java.util.List;
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseHolder>
 {
 
-    private List<Exercise> exerciseList;
-
     private ArrayList<Integer> selectedExercisePositions;
-
-    protected Context context;
 
     private ExerciseHolder holder;
 
-    public ExerciseAdapter(Context context)
+    ExerciseViewModel exerciseViewModel;
+
+    private List<Exercise> exerciseList;
+
+    private int layoutId;
+
+    public ExerciseAdapter(@LayoutRes int layoutId, ExerciseViewModel exerciseViewModel)
     {
-        exerciseList = new ArrayList<>();
+        this.layoutId = layoutId;
         selectedExercisePositions = new ArrayList<>();
-        this.context = context;
+        this.exerciseViewModel = exerciseViewModel;
     }
 
-    public ExerciseAdapter(Context context, @LayoutRes int layoutId)
+    private int getLayoutIdForPosition(int position)
     {
-        exerciseList = new ArrayList<>();
+        return layoutId;
+    }
+
+    public ExerciseAdapter(@LayoutRes int layoutId)
+    {
         selectedExercisePositions = new ArrayList<>();
-        this.context = context;
-    }
-
-    public ExerciseAdapter(ArrayList<Exercise> exerciseList)
-    {
-        this.exerciseList = exerciseList;
-    }
-
-    public List<Exercise> getExerciseList()
-    {
-        return exerciseList;
-    }
-
-    public void setExercise(Exercise exercise)
-    {
-        exerciseList.add(exercise);
-        notifyDataSetChanged();
-    }
-
-    public void updateExercise(int id)
-    {
-        notifyItemChanged(id);
-    }
-
-    public void removeExercise(int id)
-    {
-        exerciseList.remove(id);
-        notifyDataSetChanged();
     }
 
     public void setExerciseList(List<Exercise> exerciseList)
     {
         this.exerciseList = exerciseList;
         notifyDataSetChanged();
+    }
+
+    public List<Exercise> getExerciseList()
+    {
+        return exerciseList;
     }
 
     @NonNull
@@ -77,28 +60,27 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseHolder>
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ExerciseItemBinding binding = ExerciseItemBinding.inflate(inflater, parent, false);
 
-
-        return new ExerciseHolder(binding, context);
+        return new ExerciseHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseHolder holder, int position)
     {
-        Exercise item = exerciseList.get(position);
-        holder.bind(item);
+        //Exercise item = exerciseList.get(position);
+        //holder.bind(exerciseViewModel, item);
 
+        holder.bind(exerciseViewModel, position);
         this.holder = holder;
     }
 
     @Override
     public int getItemCount()
     {
-        return exerciseList.size();
+        return exerciseList == null ? 0 : exerciseList.size();
     }
 
-    public ArrayList<Exercise> getSelectedExercises()
-    {
-        return holder.getSelectedExercises();
+    @Override
+    public int getItemViewType(int position) {
+        return getLayoutIdForPosition(position);
     }
-
 }

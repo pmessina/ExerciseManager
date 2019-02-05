@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".exercise.SelectedExerciseActivity"
+            android:name=".selectedexercise.SelectedExerciseActivity"
             android:label="@string/title_activity_selected_exercise"
             android:parentActivityName=".exercise.ExerciseActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -34,7 +34,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".exercise.IntervalActivity" />
+        <activity android:name=".interval.IntervalActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pirateman.exercisemanager.selectedexercise.SelectedExerciseActivity" />
+        </activity>
         <activity
             android:name=".exercise.WorkoutActivity"
             android:label="@string/title_activity_workout"

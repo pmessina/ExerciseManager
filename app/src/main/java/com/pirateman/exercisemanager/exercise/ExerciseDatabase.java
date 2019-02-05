@@ -4,9 +4,11 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
-import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.support.annotation.NonNull;
+
+import com.pirateman.exercisemanager.interval.Interval;
+import com.pirateman.exercisemanager.interval.IntervalDao;
 
 import java.util.concurrent.Executors;
 
@@ -15,6 +17,8 @@ public abstract class ExerciseDatabase extends RoomDatabase {
     private static ExerciseDatabase INSTANCE;
 
     public abstract ExerciseDao exerciseDao();
+
+    public abstract IntervalDao intervalDao();
 
     public static ExerciseDatabase getINSTANCE(final Context context) {
 

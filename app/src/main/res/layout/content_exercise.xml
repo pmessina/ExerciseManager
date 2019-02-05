@@ -1,57 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".exercise.ExerciseActivity"
-    tools:showIn="@layout/activity_exercise">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!--For Testing-->
-    <!--<LinearLayout-->
+    <data>
+        <variable
+            name="exerciseViewModel"
+            type="com.pirateman.exercisemanager.exercise.ExerciseViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".exercise.ExerciseActivity"
+        tools:showIn="@layout/activity_exercise">
+
+        <!--For Testing-->
+        <!--<LinearLayout-->
         <!--android:orientation="vertical"-->
         <!--android:id="@+id/llExerciseList"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"/>-->
 
-    <TextView
-        android:id="@+id/tvAvailableExercises"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Available Exercises"
-        android:layout_margin="8dp"/>
+        <TextView
+            android:id="@+id/tvAvailableExercises"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available Exercises"
+            android:layout_margin="8dp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvExerciseList"
-        android:layout_width="match_parent"
-        android:layout_height="525dp" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvExerciseList"
+            android:layout_width="match_parent"
+            android:layout_height="525dp"
+            app:setAdapter="@{exerciseViewModel.getExerciseAdapter()}"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="Ok" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="Ok" />
 
 
-    <!--<TextView-->
+        <!--<TextView-->
         <!--android:id="@+id/tvSelectedExercises"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:text="Selected Exercises"-->
         <!--android:layout_margin="8dp"/>-->
 
-    <!--<android.support.v7.widget.RecyclerView-->
+        <!--<android.support.v7.widget.RecyclerView-->
         <!--android:id="@+id/rvSelectedExercises"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="200dp" />-->
 
-    <!--<Button-->
+        <!--<Button-->
         <!--android:id="@+id/btnSubmit"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:text="Submit" />-->
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

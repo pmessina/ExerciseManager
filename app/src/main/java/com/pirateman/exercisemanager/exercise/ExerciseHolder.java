@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SwappingHolder;
+import com.pirateman.exercisemanager.BR;
 import com.pirateman.exercisemanager.R;
 import com.pirateman.exercisemanager.databinding.ExerciseItemBinding;
 
@@ -216,33 +217,40 @@ public class ExerciseHolder extends SwappingHolder implements View.OnClickListen
  {
     private ExerciseItemBinding binding;
     private static final MultiSelector multiSelector = new MultiSelector();
-    private Context context;
+    ExerciseViewModel exerciseViewModel;
 
-    private static final ArrayList<Exercise> selectedExercises = new ArrayList<>();
-
-    public ExerciseHolder(ExerciseItemBinding binding, Context context) {
+    public ExerciseHolder(ExerciseItemBinding binding) {
         super(binding.getRoot(), multiSelector);
         this.binding = binding;
-        this.context = context;
-        binding.getRoot().setLongClickable(true);
-        binding.getRoot().setClickable(true);
 
         binding.getRoot().setOnClickListener(this);
         binding.getRoot().setOnLongClickListener(this);
     }
 
-    public void bind(Exercise exercise) {
-        binding.setExerciseRecord(exercise);
+    public void bind(ExerciseViewModel exerciseViewModel, int position) {
+        binding.setVariable(BR.exerciseViewModel, exerciseViewModel);
+        binding.setVariable(BR.position, position);
+
+//        exerciseViewModel.getSelectedExercise(exercise.getId());
+//        binding.setExerciseRecord(exercise);
     }
 
     @Override
     public void onClick(View view) {
+        multiSelector.setSelected(this, true);
+        multiSelector.setSelectable(true);
+
         if (!multiSelector.tapSelection(this)){
             ExerciseItemBinding binding = DataBindingUtil.getBinding(view);
 
+//            if (binding.getExerciseRecord() != null) {
+//                selectedExercises.add(binding.getExerciseRecord());
+//            }
+
             if (binding.getExerciseRecord() != null) {
-                selectedExercises.add(binding.getExerciseRecord());
+                exerciseViewModel.setExercise(binding.getExerciseRecord());
             }
+
 
         }
     }
@@ -255,47 +263,21 @@ public class ExerciseHolder extends SwappingHolder implements View.OnClickListen
 
         ExerciseItemBinding binding = DataBindingUtil.getBinding(view);
 
+//        if (binding != null) {
+//            if (binding.getExerciseRecord() != null) {
+//                selectedExercises.add(binding.getExerciseRecord());
+//            }
+//        }
+
         if (binding.getExerciseRecord() != null) {
-            selectedExercises.add(binding.getExerciseRecord());
+            exerciseViewModel.setSelectedExercise(binding.getExerciseRecord());
         }
-            //ExerciseDatabase database = ExerciseDatabase.getINSTANCE(context);
-
-//
-//                LiveData<List<Exercise>> exercises = database.exerciseDao().getAll();
-//
-//                exercises.observe((AppCompatActivity) context, new Observer<List<Exercise>>() {
-//                    @Override
-//                    public void onChanged(@Nullable List<Exercise> exercises) {
-//                        for(Exercise e: exercises)
-//                        {
-//
-//                        }
-//                    }
-//                });
-//            TextView v = view.findViewById(R.id.exerciseId);
-//            String str =  v.getText().toString();
-//
-//            int id = Integer.valueOf(str);
-
-            //LiveData<Exercise> exercise = database.exerciseDao().getExerciseById(id);
-
-//            exercise.observe((AppCompatActivity) context, new Observer<Exercise>() {
-//                @Override
-//                public void onChanged(@Nullable Exercise exercise) {
-//
-//                    //listener.AddExercise(exercise);
-//                    Toast.makeText(context, exercise != null ? exercise.toString() : "Exercise is null", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-
-            //Get Exercise value clicked
-
 
         return true;
     }
 
-    public ArrayList<Exercise> getSelectedExercises()
-    {
-       return selectedExercises;
-    }
+//    public void sendSelectedExercises()
+//    {
+//
+//    }
 }
