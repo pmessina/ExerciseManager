@@ -9,40 +9,37 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".ExerciseApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".selectedexercise.SelectedExerciseActivity"
-            android:label="@string/title_activity_selected_exercise"
-            android:parentActivityName=".exercise.ExerciseActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pirateman.exercisemanager.exercise.ExerciseActivity" />
-        </activity>
-        <activity android:name=".ExercisePlannerActivity"></activity>
-        <activity android:name=".ExerciseCriteriaActivity"></activity>
+<!--        <activity-->
+<!--            android:name=".selectedexercise.SelectedExerciseActivity"-->
+<!--            android:label="@string/title_activity_selected_exercise"-->
+<!--            android:parentActivityName=".exercise.ExerciseActivity"-->
+<!--            android:theme="@style/AppTheme.NoActionBar">-->
+<!--        </activity>-->
+        <activity android:name=".ExercisePlannerActivity" />
+        <activity android:name=".ExerciseCriteriaActivity" />
         <activity
             android:name=".exercise.ExerciseActivity"
-            android:label="@string/title_activity_exercise"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_exercise">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".interval.IntervalActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.pirateman.exercisemanager.selectedexercise.SelectedExerciseActivity" />
-        </activity>
+<!--        <activity android:name=".interval.IntervalActivity">-->
+<!--            <meta-data-->
+<!--                android:name="android.support.PARENT_ACTIVITY"-->
+<!--                android:value="com.pirateman.exercisemanager.selectedexercise.SelectedExerciseActivity" />-->
+<!--        android:theme="@style/AppTheme.NoActionBar"-->
+<!--        </activity>-->
         <activity
             android:name=".exercise.WorkoutActivity"
-            android:label="@string/title_activity_workout"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_workout" />
         <activity android:name=".exercise.ExerciseEditActivity" />
     </application>
 

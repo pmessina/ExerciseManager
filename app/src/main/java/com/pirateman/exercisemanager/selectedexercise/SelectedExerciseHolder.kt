@@ -1,0 +1,9 @@
+package com.pirateman.exercisemanager.selectedexercise
+
+import android.app.Application
+import com.pirateman.exercisemanager.exercise.ExerciseDao
+import androidx.lifecycle.LiveData
+import com.pirateman.exercisemanager.exercise.Exercise
+import com.pirateman.exercisemanager.exercise.ExerciseDatabase
+import androidx.lifecycle.AndroidViewModel
+import com.pirateman.exercisemanager.selectedexercise.SelectedExerciseRepository
