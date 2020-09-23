@@ -2,45 +2,44 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/clAvailableExercises"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
-    tools:context=".exercise.AvailableExercisesFragment">
-
+    tools:context=".selectedexercise.SelectedExercisesFragment">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvSelectedExercises"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Choose the exercises for your workout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="40dp"
+        android:text="Selected Exercises"
+        app:layout_constraintBottom_toTopOf="@+id/rvSelectedExerciseList"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvExerciseList"
+        android:id="@+id/rvSelectedExerciseList"
         android:layout_width="290dp"
         android:layout_height="499dp"
-        android:layout_marginTop="40dp"
-        android:background="@color/design_default_color_on_primary"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmitExercises"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectedExercises" />
+
+
 
 
     <Button
         android:id="@+id/btnSubmitExercises"
-        android:layout_width="264dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="41dp"
         android:text="Ok"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvExerciseList"
-        app:layout_constraintVertical_bias="0.502" />
+        app:layout_constraintTop_toBottomOf="@+id/rvSelectedExerciseList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

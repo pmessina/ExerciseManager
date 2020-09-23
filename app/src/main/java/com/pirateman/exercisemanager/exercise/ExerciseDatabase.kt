@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.pirateman.exercisemanager.interval.Interval
 import com.pirateman.exercisemanager.interval.IntervalDao
 
-@Database(entities = [Exercise::class, Interval::class], version = 4, exportSchema = false)
+@Database(entities = [Exercise::class, Interval::class], version = 6, exportSchema = false)
 abstract class ExerciseDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
     abstract fun intervalDao(): IntervalDao?

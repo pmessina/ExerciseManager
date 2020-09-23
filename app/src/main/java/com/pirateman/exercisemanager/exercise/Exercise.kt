@@ -8,7 +8,7 @@ import com.pirateman.exercisemanager.ExerciseInterval
 import java.io.Serializable
 
 @Entity
-class Exercise(val name: String?, val muscleGroup: String?, val method: String?) : Serializable {
+class Exercise(var name: String?, var muscleGroup: String?, var method: String?, var selected: Boolean = false) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id = 0
 
@@ -17,6 +17,8 @@ class Exercise(val name: String?, val muscleGroup: String?, val method: String?)
     private val intervalIds: List<Int>? = null
 
     override fun toString(): String {
-        return "$id $name $method $muscleGroup"
+        return "$id $name $method $muscleGroup $selected"
     }
+
+
 }

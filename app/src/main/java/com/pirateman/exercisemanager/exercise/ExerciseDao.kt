@@ -22,7 +22,7 @@ interface ExerciseDao {
     fun removeExercise(id: Int)
 
     @Update
-    fun updateExercise(exercise: Exercise?)
+    suspend fun updateExercise(exercise:Exercise)
 
     @Insert
     fun insertInterval(interval: Interval?)
@@ -35,4 +35,5 @@ interface ExerciseDao {
 
     @get:Query("SELECT COUNT('id') FROM exercise")
     val numberOfRows: Int
+
 }

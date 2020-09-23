@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_availableExercisesFragment_to_addExerciseFragment"
             app:destination="@id/addExerciseFragment" />
+        <action
+            android:id="@+id/action_availableExercisesFragment_to_selectedExercisesFragment"
+            app:destination="@id/selectedExercisesFragment" />
     </fragment>
     <fragment
         android:id="@+id/addExerciseFragment"
@@ -21,6 +24,15 @@
         tools:layout="@layout/fragment_add_exercise" >
         <action
             android:id="@+id/action_addExerciseFragment_to_availableExercisesFragment"
+            app:destination="@id/availableExercisesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectedExercisesFragment"
+        android:name="com.pirateman.exercisemanager.selectedexercise.SelectedExercisesFragment"
+        android:label="fragment_selected_exercises"
+        tools:layout="@layout/fragment_selected_exercises" >
+        <action
+            android:id="@+id/action_selectedExercisesFragment_to_availableExercisesFragment"
             app:destination="@id/availableExercisesFragment" />
     </fragment>
 </navigation>

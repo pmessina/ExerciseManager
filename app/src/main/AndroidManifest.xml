@@ -23,7 +23,7 @@
         <activity android:name=".ExercisePlannerActivity" />
         <activity android:name=".ExerciseCriteriaActivity" />
         <activity
-            android:name=".exercise.ExerciseActivity"
+            android:name=".exercise.ExerciseHomeActivity"
             android:label="@string/title_activity_exercise">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

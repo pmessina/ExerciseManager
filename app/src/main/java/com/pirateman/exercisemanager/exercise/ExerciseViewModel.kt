@@ -2,7 +2,8 @@ package com.pirateman.exercisemanager.exercise
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.observe
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.*
@@ -10,7 +11,12 @@ import java.util.*
 class ExerciseViewModel() : ViewModel(), KoinComponent {
 
     val exerciseRepository: ExerciseRepository by inject()
-    val exerciseAdapter: ExerciseAdapter by inject()
+    val exerciseAdapter: AvailableExercisesAdapter by inject()
+
+    val exerciseList = ArrayList<Exercise>()
+
+    val selectedExerciseList = ArrayList<Exercise>()
+
 //    val exercises: LiveData<List<Exercise>>
 
     //    public ExerciseAdapter getExerciseAdapter() {
@@ -23,30 +29,31 @@ class ExerciseViewModel() : ViewModel(), KoinComponent {
     }
 
     fun getAllExercises(): LiveData<List<Exercise>> {
-        val exercises = exerciseRepository.getExercises()
 
-        return exercises
-
+        return  exerciseRepository.getExercises()
     }
 
 
-    val exerciseList: List<Exercise>
-
-    fun setExercise(exercise: Exercise) {
-        //exerciseList.add(exercise)
-        // exerciseAdapter.notifyDataSetChanged();
+    fun setSelectedExercise(exercise: Exercise, selected: Boolean) {
+        viewModelScope.launch {
+            exercise.selected = selected
+            exerciseRepository.updateExercise(exercise)
+        }
+//        if (!selected)
+//            exerciseList.add(exercise)
     }
 
-    fun setSelectedExercise(exercise: Exercise) {
-        //selectedExercises.add(exercise)
-        //exerciseAdapter.notifyDataSetChanged();
-    }
+//    fun setSelectedExercise(exercise: Exercise) {
+//        selectedExercises.add(exercise)
+//        //exerciseAdapter.notifyDataSetChanged();
+//    }
 
     //val selectedExercises: List<Exercise>
 
-    fun updateExercise(id: Int) {
-        //exerciseAdapter.notifyItemChanged(id)
-    }
+//    fun updateExercise(exercise: Exercise) {
+//        exerciseRepository.updateExercise(exercise)
+//        //exerciseAdapter.notifyItemChanged(id)
+//    }
 
     fun removeExercise(id: Int) {
         //exerciseList.removeAt(id)
@@ -70,10 +77,10 @@ class ExerciseViewModel() : ViewModel(), KoinComponent {
         //private val selectedExercises = ArrayList<Exercise>()
     }
 
-    init {
-        //exerciseAdapter = new ExerciseAdapter(R.layout.content_exercise, this);
-        //exerciseRepository = ExerciseRepository(application)
-       //exercises = exerciseRepository.allExercises
-        exerciseList = ArrayList()
-    }
+//    init {
+//        //exerciseAdapter = new ExerciseAdapter(R.layout.content_exercise, this);
+//        //exerciseRepository = ExerciseRepository(application)
+//       //exercises = exerciseRepository.allExercises
+//        exerciseList = ArrayList()
+//    }
 }

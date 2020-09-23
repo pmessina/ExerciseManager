@@ -1,11 +1,8 @@
 package com.pirateman.exercisemanager.exercise
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 class ExerciseRepository: KoinComponent {
 
@@ -24,6 +21,10 @@ class ExerciseRepository: KoinComponent {
 
     fun getExercises(): LiveData<List<Exercise>> {
         return exerciseDatabase.exerciseDao().getAllExercises()
+    }
+
+    suspend fun updateExercise(exercise: Exercise) {
+        exerciseDatabase.exerciseDao().updateExercise(exercise)
     }
 
 //    init {

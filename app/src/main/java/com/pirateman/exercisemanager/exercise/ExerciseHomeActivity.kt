@@ -3,28 +3,25 @@ package com.pirateman.exercisemanager.exercise
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.pirateman.exercisemanager.R
 import kotlinx.android.synthetic.main.activity_exercise.*
-import kotlinx.android.synthetic.main.content_exercise.*
-import kotlinx.android.synthetic.main.content_selected_exercise.*
-import kotlinx.android.synthetic.main.fragment_available_exercises.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 import java.util.*
 
 //import com.pirateman.exercisemanager.selectedexercise.SelectedExerciseActivity;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
-class ExerciseActivity : AppCompatActivity(), KoinComponent {
+class ExerciseHomeActivity : AppCompatActivity(), KoinComponent {
     //private val recyclerView: RecyclerView? = null
 
     //private RecyclerView selectedExercisesView;
@@ -38,15 +35,38 @@ class ExerciseActivity : AppCompatActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
 
-        val nav = NavHostFragment.findNavController(nav_host_fragment)
+
+
+        val nav = findNavController(nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, nav, AppBarConfiguration(nav.graph))
 //        NavigationUI.setupWithNavController(tbAvailableExercises, nav)
 
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val nav = NavHostFragment.findNavController(nav_host_fragment)
+        val nav = findNavController(nav_host_fragment)
         return nav.navigateUp(AppBarConfiguration(nav.graph))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            R.id.menu_manage_exercises -> {
+                val nhf = findNavController(nav_host_fragment)
+                nhf.navigate(R.id.addExerciseFragment)
+
+                true
+            }
+            //Do not change or onSupportNavigateUp will not get called
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.menu_options_manage_exercises, menu)
+
+        return true
     }
 
     //    private void clearTable()
@@ -135,14 +155,14 @@ class ExerciseActivity : AppCompatActivity(), KoinComponent {
 //        exerciseAdapter.updateExercise(exercise.getId());
 //    }
 
-   // override fun onClick(view: View) {
-        //List<Exercise> exercises = exerciseViewModel.getSelectedExercises();
+    // override fun onClick(view: View) {
+    //List<Exercise> exercises = exerciseViewModel.getSelectedExercises();
 
 //        Intent intent = new Intent(this, SelectedExerciseActivity.class);
 //        intent.putExtra("exercises", new ArrayList<>(exercises));
 //        startActivity(intent);
 
-        //ArrayList<Exercise> selectedExercises = new ArrayList<>(selectedExercisesAdapter.getExerciseList());
+    //ArrayList<Exercise> selectedExercises = new ArrayList<>(selectedExercisesAdapter.getExerciseList());
 
 
 //        switch (view.getId())
@@ -155,7 +175,7 @@ class ExerciseActivity : AppCompatActivity(), KoinComponent {
 //                startActivity(intent);
 //                break;
 //        }
- //   }
+    //   }
 
     internal inner class EditExerciseRunnable(private val exercise: Exercise) : Runnable {
         override fun run() {

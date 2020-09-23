@@ -28,11 +28,13 @@ class ExerciseApplication : Application() {
     }
 
     private val exerciseModule = module{
-        viewModel{
+        //Create a view model only once
+        single{
             ExerciseViewModel()
         }
 
-        single{
+
+        factory {
             ExerciseRepository()
         }
     }
