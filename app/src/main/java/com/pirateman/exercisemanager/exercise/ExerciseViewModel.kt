@@ -1,6 +1,7 @@
 package com.pirateman.exercisemanager.exercise
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
@@ -15,7 +16,9 @@ class ExerciseViewModel() : ViewModel(), KoinComponent {
 
     val exerciseList = ArrayList<Exercise>()
 
-    val selectedExerciseList = ArrayList<Exercise>()
+    val selectedExerciseList = MutableLiveData<ArrayList<Exercise>>()
+
+    lateinit var currentExercise: Exercise
 
 //    val exercises: LiveData<List<Exercise>>
 
@@ -32,6 +35,7 @@ class ExerciseViewModel() : ViewModel(), KoinComponent {
 
         return  exerciseRepository.getExercises()
     }
+
 
 
     fun setSelectedExercise(exercise: Exercise, selected: Boolean) {

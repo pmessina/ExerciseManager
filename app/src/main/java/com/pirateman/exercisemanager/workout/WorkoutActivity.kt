@@ -1,4 +1,4 @@
-package com.pirateman.exercisemanager.exercise
+package com.pirateman.exercisemanager.workout
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

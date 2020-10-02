@@ -35,8 +35,11 @@ class AvailableExercisesFragment : Fragment() {
         if (exerciseViewModel.exerciseList.isEmpty()) {
             exerciseViewModel.getAllExercises().observe(this.viewLifecycleOwner, Observer { t ->
                 exerciseViewModel.exerciseList.addAll(t)
+                
                 val exerciseAdapter = AvailableExercisesAdapter(t, this.requireContext())
                 rvExerciseList.adapter = exerciseAdapter
+
+                exerciseAdapter.notifyDataSetChanged()
                 //Toast.makeText(this.context, "${t.size} exercises from database", Toast.LENGTH_LONG).show()
             })
 

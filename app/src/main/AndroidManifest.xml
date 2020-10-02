@@ -38,7 +38,7 @@
 <!--        android:theme="@style/AppTheme.NoActionBar"-->
 <!--        </activity>-->
         <activity
-            android:name=".exercise.WorkoutActivity"
+            android:name=".workout.WorkoutActivity"
             android:label="@string/title_activity_workout" />
         <activity android:name=".exercise.ExerciseEditActivity" />
     </application>

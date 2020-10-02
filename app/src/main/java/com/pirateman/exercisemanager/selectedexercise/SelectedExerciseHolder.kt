@@ -1,42 +1,70 @@
 package com.pirateman.exercisemanager.selectedexercise
 
-import android.app.Application
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import com.pirateman.exercisemanager.exercise.ExerciseDao
-import androidx.lifecycle.LiveData
-import com.pirateman.exercisemanager.exercise.Exercise
-import com.pirateman.exercisemanager.exercise.ExerciseDatabase
-import androidx.lifecycle.AndroidViewModel
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
-import com.bignerdranch.android.multiselector.MultiSelector
-import com.bignerdranch.android.multiselector.SwappingHolder
 import com.pirateman.exercisemanager.R
+import com.pirateman.exercisemanager.exercise.Exercise
 import com.pirateman.exercisemanager.exercise.ExerciseViewModel
-import com.pirateman.exercisemanager.selectedexercise.SelectedExerciseRepository
+import kotlinx.android.synthetic.main.recycler_view_selected_exercise_item.view.*
+import org.koin.android.viewmodel.compat.ScopeCompat.viewModel
 import org.koin.core.KoinComponent
-import org.koin.core.inject
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-class SelectedExerciseHolder(val view: View) : KoinComponent, RecyclerView.ViewHolder(view), View.OnClickListener {
+class SelectedExerciseHolder(val view: View) : RecyclerView.ViewHolder(view) /*, View.OnClickListener*/ {
 
     val tvSelectedExerciseName = view.findViewById(R.id.tvSelectedExerciseName) as TextView
+    val imgDeleteExercise = view.findViewById(R.id.imgDelete) as ImageButton
 
-
-    init{
+    init {
         view.isClickable = true
-        view.setOnClickListener(this)
-    }
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun onClick(itemView: View) {
-
-        val context = itemView.context
+//        imgDeleteExercise.setOnClickListener {
+//            (itemView as ViewGroup).removeView(view)
+//        }
 
     }
+
+
+
+//    @RequiresApi(Build.VERSION_CODES.M)
+//    override fun onClick(itemView: View) {
+//
+//        val ex = itemView.tag as Exercise
+//        //exerciseViewModel.currentExercise = ex
+//
+//        if (itemView == imgDeleteExercise) {
+//            //adapterPosition
+////            if (itemCount > 0) {
+//
+//                //exerciseViewModel.setSelectedExercise(ex, false)
+//
+//                //Id should be the same as the position in the recyclerview
+//
+////                exerciseList.removeAt(ex.id)
+////                notifyItemRemoved(ex.id)
+////            }
+//        }
+//        else{
+//            Navigation.findNavController(itemView).navigate(R.id.workoutFragment)
+//        }
+//
+//
+//
+////
+////        if (itemView.equals(imgDeleteExercise)){
+////
+////        }
+//
+//        //val context = itemView.context
+//
+//    }
+
 
 
 }

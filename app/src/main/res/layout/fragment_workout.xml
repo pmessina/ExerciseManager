@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".workout.WorkoutFragment">
+
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:id="@+id/intervalRow">-->
+
+    <!--        &lt;!&ndash;Fragment goes here &ndash;&gt;-->
+
+    <!--    </LinearLayout>-->
+
+
+    <TextView
+        android:id="@+id/tvExerciseName"
+        android:layout_width="219dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="40dp"
+        android:hint="Exercise Name"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="172dp" />
+
+    <TextView
+        android:id="@+id/tvExerciseDate"
+        android:layout_width="170dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="44dp"
+        android:background="#CA8B8B"
+        android:hint="Date"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="2dp" />
+
+    <ImageButton
+        android:id="@+id/imgAddInterval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_button_style"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="99dp" />
+
+    <Button
+        android:id="@+id/btnWorkoutSubmit"
+        android:layout_width="249dp"
+        android:layout_height="42dp"
+        android:text="Save"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="697dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="649dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWorkouts"
+        android:layout_width="393dp"
+        android:layout_height="515dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="132dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

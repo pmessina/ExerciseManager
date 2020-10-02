@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pirateman.exercisemanager.R
@@ -36,7 +37,16 @@ class SelectedExercisesFragment : Fragment(), KoinComponent {
         val divider = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
         rvSelectedExerciseList.addItemDecoration(divider)
 
-        val selectedExerciseAdapter = SelectedExercisesAdapter(exerciseViewModel.exerciseList.filter { t -> t.selected }, this.requireContext())
+        val selectedExercisesList = exerciseViewModel.exerciseList.filter { t -> t.selected } as ArrayList
+
+//        exerciseViewModel.selectedExerciseList.postValue(selectedExercisesList)
+//
+//        exerciseViewModel.selectedExerciseList.observe(viewLifecycleOwner, Observer { sel ->
+//            val selectedExerciseAdapter = SelectedExercisesAdapter(sel, this.requireContext(), exerciseViewModel)
+//            rvSelectedExerciseList.adapter = selectedExerciseAdapter
+//
+//        })
+        val selectedExerciseAdapter = SelectedExercisesAdapter(selectedExercisesList, this.requireContext(), exerciseViewModel)
         rvSelectedExerciseList.adapter = selectedExerciseAdapter
     }
 

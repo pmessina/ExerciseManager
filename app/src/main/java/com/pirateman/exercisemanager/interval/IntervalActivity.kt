@@ -5,13 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.pirateman.exercisemanager.R
 import com.pirateman.exercisemanager.exercise.Exercise
-import com.pirateman.exercisemanager.exercise.ExerciseDatabase
 import kotlinx.android.synthetic.main.activity_interval.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -33,7 +29,7 @@ class IntervalActivity : AppCompatActivity(), View.OnClickListener {
         currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
         tvExerciseDate.text = currentDate
 
-        val btnSubmitInterval = findViewById<Button>(R.id.btnIntervalSubmit)
+        val btnSubmitInterval = findViewById<Button>(R.id.btnWorkoutSubmit)
         btnSubmitInterval.setOnClickListener(this)
         imgAddInterval.setOnClickListener(this)
         //val intervalDao = ExerciseDatabase.getINSTANCE(this)?.intervalDao()
@@ -60,7 +56,7 @@ class IntervalActivity : AppCompatActivity(), View.OnClickListener {
         val fragmentManager = fragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         when (v.id) {
-            R.id.btnIntervalSubmit -> {
+            R.id.btnWorkoutSubmit -> {
                 val reps = Integer.valueOf(edtReps!!.text.toString())
                 val sets = Integer.valueOf(edtSets!!.text.toString())
                 val weight = Integer.valueOf(edtWeight!!.text.toString())
