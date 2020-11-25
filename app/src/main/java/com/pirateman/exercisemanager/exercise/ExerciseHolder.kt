@@ -5,6 +5,8 @@ import android.os.Build
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.multiselector.MultiSelector
 import com.bignerdranch.android.multiselector.SwappingHolder
 import com.pirateman.exercisemanager.R
@@ -30,6 +32,18 @@ class ExerciseHolder(val view: View) : KoinComponent, SwappingHolder(view), View
     override fun onClick(itemView: View) {
 
         val context = itemView.context
+
+        val p = itemView.parent as View
+
+        val rv = p.findViewById(R.id.rvExerciseList) as RecyclerView
+        rv.layoutManager = object : LinearLayoutManager(itemView.context){
+            override fun canScrollHorizontally(): Boolean {
+                return false
+            }
+
+        }
+
+
 
         val v = itemView.tag as Exercise
 

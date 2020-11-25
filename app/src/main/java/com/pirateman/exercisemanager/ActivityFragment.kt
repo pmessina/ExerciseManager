@@ -28,7 +28,6 @@ class ActivityFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mViewModel = ViewModelProviders.of(this).get(GridItemViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     fun onReplaceFragmentClick(view: View?) {

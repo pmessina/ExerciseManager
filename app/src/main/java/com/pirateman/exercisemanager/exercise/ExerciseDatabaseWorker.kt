@@ -6,11 +6,14 @@ import androidx.work.WorkerParameters
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class ExerciseDatabaseWorker(context: Context, workerParams: WorkerParameters) : KoinComponent, CoroutineWorker(context, workerParams) {
+class ExerciseDatabaseWorker(val context: Context, workerParams: WorkerParameters) : KoinComponent, CoroutineWorker(context, workerParams) {
 
-    //private val database: ExerciseDatabase by inject()
     private val exerciseDao: ExerciseDao by inject()
     override suspend fun doWork(): Result {
+        //On install, clear the database and insert the data
+
+
+
 
         val exerciseList = arrayOf(
                 Exercise("Bicep Curls", "Biceps", "Barbells"),
@@ -30,8 +33,8 @@ class ExerciseDatabaseWorker(context: Context, workerParams: WorkerParameters) :
                 Exercise("High Side Planks Left/Right", "Arms", "Weightless"),
                 Exercise("Reverse Plank Dips", "Triceps", "Weightless")
         )
-//
-//        val exerciseDao = database.exerciseDao()
+
+        val numRows = exerciseDao.numberOfRows
 
         exerciseDao.insertAll(*exerciseList)
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.*
@@ -36,12 +36,15 @@ class ExerciseViewModel() : ViewModel(), KoinComponent {
         return  exerciseRepository.getExercises()
     }
 
-
-
     fun setSelectedExercise(exercise: Exercise, selected: Boolean) {
-        viewModelScope.launch {
-            exercise.selected = selected
-            exerciseRepository.updateExercise(exercise)
+
+        runBlocking {
+            val result = async(Dispatchers.Default) {
+                exercise.selected = selected
+                exerciseRepository.updateExercise(exercise)
+            }
+
+            result.await()
         }
 //        if (!selected)
 //            exerciseList.add(exercise)

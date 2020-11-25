@@ -13,11 +13,10 @@ class WorkoutAdapter : RecyclerView.Adapter<WorkoutViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return 0
     }
 
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
-        TODO("Not yet implemented")
     }
 
 }

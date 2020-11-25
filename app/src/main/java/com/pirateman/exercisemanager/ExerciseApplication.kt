@@ -1,6 +1,7 @@
 package com.pirateman.exercisemanager
 
 import android.app.Application
+import android.database.sqlite.SQLiteDatabase
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -23,7 +24,7 @@ class ExerciseApplication : Application() {
 
         startKoin{
             androidContext(this@ExerciseApplication)
-            modules(listOf(exerciseModule, roomModule))
+            modules(listOf(exerciseModule, roomModule, firestoreModule))
         }
     }
 
@@ -45,11 +46,20 @@ class ExerciseApplication : Application() {
                     .addCallback(object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
+
+                            this@ExerciseApplication.baseContext.deleteDatabase("exercise_db")
+
+
+
                             val request = OneTimeWorkRequestBuilder<ExerciseDatabaseWorker>().build()
 
                             WorkManager.getInstance(this@ExerciseApplication).enqueue(request)
                         }
+
                     })
+
+
+
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()

@@ -39,7 +39,7 @@ class SelectedExercisesFragment : Fragment(), KoinComponent {
 
         val selectedExercisesList = exerciseViewModel.exerciseList.filter { t -> t.selected } as ArrayList
 
-//        exerciseViewModel.selectedExerciseList.postValue(selectedExercisesList)
+//        exerciseViewModel.selectedExerciseList.p=ostValue(selectedExercisesList)
 //
 //        exerciseViewModel.selectedExerciseList.observe(viewLifecycleOwner, Observer { sel ->
 //            val selectedExerciseAdapter = SelectedExercisesAdapter(sel, this.requireContext(), exerciseViewModel)

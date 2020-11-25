@@ -30,8 +30,11 @@ interface ExerciseDao {
     @Insert
     fun insertAll(vararg exercises: Exercise?)
 
-    @Query("delete from exercise")
-    fun removeAll()
+//    @Query("delete from exercise")
+//    fun removeAll()
+
+    @Delete
+    fun removeAll(exercise: Exercise)
 
     @get:Query("SELECT COUNT('id') FROM exercise")
     val numberOfRows: Int

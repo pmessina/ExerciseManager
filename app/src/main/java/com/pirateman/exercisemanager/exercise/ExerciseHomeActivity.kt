@@ -5,14 +5,19 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.pirateman.exercisemanager.FirebaseWorker
 import com.pirateman.exercisemanager.R
 import kotlinx.android.synthetic.main.activity_exercise.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -28,18 +33,32 @@ class ExerciseHomeActivity : AppCompatActivity(), KoinComponent {
 
     //private ExerciseAdapter selectedExercisesAdapter;
 
+    private lateinit var auth: FirebaseAuth
 
     private val exerciseViewModel: ExerciseViewModel by viewModel()
+
+    override fun onStart() {
+        super.onStart()
+
+        val currentUser = auth.currentUser
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
 
+        auth = Firebase.auth
 
+        firebaseSignIn()
+
+        val fireBaseRequest = OneTimeWorkRequestBuilder<FirebaseWorker>().build()
+
+        WorkManager.getInstance(this).enqueue(fireBaseRequest)
 
         val nav = findNavController(nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, nav, AppBarConfiguration(nav.graph))
-//        NavigationUI.setupWithNavController(tbAvailableExercises, nav)
+
 
     }
 
@@ -69,120 +88,28 @@ class ExerciseHomeActivity : AppCompatActivity(), KoinComponent {
         return true
     }
 
-    //    private void clearTable()
-    //    {
-    //        Completable.fromAction(new Action() {
-    //            @Override
-    //            public void run() throws Exception {
-    //                ExerciseDatabase.getINSTANCE(ExerciseActivity.this).clearAllTables();
-    //            }
-    //        }).subscribeOn(Schedulers.newThread())
-    //                .subscribe(new Action() {
-    //                    @Override
-    //                    public void run() throws Exception {
-    //                        Log.d("clearAllTables", "--- clearAllTables(): run() ---");
-    //
-    //                    }
-    //                }, new Consumer<Throwable>() {
-    //                    @Override
-    //                    public void accept(Throwable throwable) throws Exception {
-    //                        Log.d("clearAllTables", "--- clearAllTables(): accept(Throwable throwable) ----");
-    //                        Log.d("throwableMessage", "throwable.getMessage(): "+throwable.getMessage());
-    //
-    //
-    //                    }
-    //                });
-    //    }
-    fun insertExercise(): Exercise {
-        //  ExerciseDao dao = ExerciseDatabase.getINSTANCE(ExerciseActivity.this).exerciseDao();
-        val e1 = Exercise("Barbells", "Quads", "Squats")
+    private fun firebaseSignIn() {
+        // Initiate sign in with custom token
+        // [START sign_in_custom]
+        auth.signInAnonymously()
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInAnonymously:success")
+                        //val user = auth.currentUser
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInAnonymously:failure", task.exception)
+                        Toast.makeText(baseContext, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show()
 
-        //dao!!.insertExercise(e1)
-        return e1
+                    }
+                }
+
+        // [END sign_in_custom]
     }
 
-    fun testDataBindingContentView() {
-        //ExerciseItemBinding binding = DataBindingUtil.setContentView(this, R.layout.recycler_view_exercise_item);
-//        val exercise = Exercise()
-//        exercise.name = "Chest Press"
-//        exercise.muscleGroup = "Chest"
-//        exercise.method = "Barbells"
-
-        //binding.setExerciseRecord(exercise);
-    }
-
-    fun testDataBindingInflater() {
-        //LinearLayout layout = findViewById(R.id.llExerciseList);
-        val fm = supportFragmentManager
-        val ft = fm.beginTransaction()
-        val fragment = ExerciseFragment()
-
-        //ft.replace(R.id.llExerciseList, fragment);
-        ft.commit()
-    }
-
-    fun testExerciseData(): List<Exercise> {
-        return Arrays.asList(
-                Exercise("pull ups", "shoulders", "pull up bar"),
-                Exercise("push ups", "shoulders", "bosu"),
-                Exercise("leg press", "quads", "machine"),
-                Exercise("leg curls", "hamstrings", "machine")
-        )
-    }
-
-    fun setUpExerciseObservable() {
-//        LiveData<List<Exercise>> exercises = exerciseViewModel.getExercises();
-//
-//        exercises.observe(this, e -> {
-//            exerciseViewModel.setUpExerciseAdapter(e);
-//        });
-    }
-
-//    override fun AddExercise(exercise: Exercise) {
-//        selectedExercisesAdapter.setExercise(exercise);
-//        selectedExercisesView.setAdapter(selectedExercisesAdapter);
-//    }
-//
-//    override fun deleteExercise(id: Int) {
-//        exerciseAdapter.removeExercise(id);
-//        recyclerView.setAdapter(exerciseAdapter);
-//    }
-//
-//    override fun updateExercise(exercise: Exercise) {
-//        Executor executor = Executors.newSingleThreadExecutor();
-//        executor.execute(new EditExerciseRunnable(exercise));
-//
-//        exerciseAdapter.updateExercise(exercise.getId());
-//    }
-
-    // override fun onClick(view: View) {
-    //List<Exercise> exercises = exerciseViewModel.getSelectedExercises();
-
-//        Intent intent = new Intent(this, SelectedExerciseActivity.class);
-//        intent.putExtra("exercises", new ArrayList<>(exercises));
-//        startActivity(intent);
-
-    //ArrayList<Exercise> selectedExercises = new ArrayList<>(selectedExercisesAdapter.getExerciseList());
-
-
-//        switch (view.getId())
-//        {
-//            case R.id.btnSubmit:
-//                Intent intent = new Intent(this, IntervalActivity.class);
-//                Bundle data = new Bundle();
-//                data.putSerializable("selectedExercises", selectedExercises);
-//
-//                startActivity(intent);
-//                break;
-//        }
-    //   }
-
-    internal inner class EditExerciseRunnable(private val exercise: Exercise) : Runnable {
-        override fun run() {
-            //val database = ExerciseDatabase.getINSTANCE(this@ExerciseActivity)
-            //database.exerciseDao().updateExercise(exercise)
-            Log.i("RemoveExercise", "Update successful")
-        }
-
+    companion object {
+        private const val TAG = "ExerciseHomeActivity"
     }
 }

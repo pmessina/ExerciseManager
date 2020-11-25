@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.pirateman.exercisemanager">
 
-    <uses-sdk tools:overrideLibrary="io.apptik.widget.mslider, com.thoughtbot.expandablerecyclerview" />
+    <uses-sdk tools:overrideLibrary="io.apptik.widget.mslider, com.thoughtbot.expandablerecyclerview, com.zhpan.indicator" />
 
     <application
         android:allowBackup="true"

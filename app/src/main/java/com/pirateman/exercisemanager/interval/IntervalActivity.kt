@@ -69,7 +69,7 @@ class IntervalActivity : AppCompatActivity(), View.OnClickListener {
                 //ExerciseDatabase.getINSTANCE(this)?.exerciseDao()?.insertInterval(interval)
             }
             R.id.imgAddInterval -> {
-                fragmentTransaction.add(R.id.intervalRow, IntervalFragment.Companion.newInstance())
+                //fragmentTransaction.add(R.id.intervalRow, IntervalFragment.newInstance())
                 fragmentTransaction.commit()
             }
         }

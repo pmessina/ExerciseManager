@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.api.Distribution
 import com.pirateman.exercisemanager.R
 import kotlinx.android.synthetic.main.fragment_available_exercises.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -28,7 +29,16 @@ class AvailableExercisesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         rvExerciseList.setHasFixedSize(true)
+
+//        rvExerciseList.layoutManager = object : LinearLayoutManager(this.context){
+//            override fun canScrollVertically(): Boolean {
+//                return false
+//            }
+//        }
+
         rvExerciseList.layoutManager = LinearLayoutManager(this.context)
+
+
         val divider = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
         rvExerciseList.addItemDecoration(divider)
 
@@ -39,6 +49,7 @@ class AvailableExercisesFragment : Fragment() {
                 val exerciseAdapter = AvailableExercisesAdapter(t, this.requireContext())
                 rvExerciseList.adapter = exerciseAdapter
 
+
                 exerciseAdapter.notifyDataSetChanged()
                 //Toast.makeText(this.context, "${t.size} exercises from database", Toast.LENGTH_LONG).show()
             })
@@ -48,6 +59,10 @@ class AvailableExercisesFragment : Fragment() {
             val list = exerciseViewModel.exerciseList
             val exerciseAdapter = AvailableExercisesAdapter(list, this.requireContext())
             rvExerciseList.adapter = exerciseAdapter
+
+
+
+
             //Toast.makeText(this.context, "${list.size} exercises from viewmodel", Toast.LENGTH_LONG).show()
         }
 

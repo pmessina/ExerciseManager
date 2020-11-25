@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/selectedExercisesFragment"
         android:name="com.pirateman.exercisemanager.selectedexercise.SelectedExercisesFragment"
-        android:label="fragment_selected_exercises"
+        android:label="Selected Exercises"
         tools:layout="@layout/fragment_selected_exercises" >
         <action
             android:id="@+id/action_selectedExercisesFragment_to_availableExercisesFragment"
