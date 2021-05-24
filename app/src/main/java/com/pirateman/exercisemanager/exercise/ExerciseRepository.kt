@@ -1,10 +1,13 @@
 package com.pirateman.exercisemanager.exercise
 
 import androidx.lifecycle.LiveData
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import com.pirateman.exercisemanager.interval.ExerciseWithIntervals
+import com.pirateman.exercisemanager.interval.Interval
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class ExerciseRepository: KoinComponent {
+
+class ExerciseRepository : KoinComponent {
 
     private val exerciseDatabase: ExerciseDatabase by inject()
 //    private val exerciseDao: ExerciseDao?
@@ -25,6 +28,31 @@ class ExerciseRepository: KoinComponent {
 
     suspend fun updateExercise(exercise: Exercise) {
         exerciseDatabase.exerciseDao().updateExercise(exercise)
+    }
+
+    fun insertInterval(interval: Interval) {
+        exerciseDatabase.intervalDao().insertInterval(interval)
+    }
+
+    private fun insertIntervalsList(intervals: List<Interval>) {
+        exerciseDatabase.exerciseDao().insertIntervals(intervals)
+    }
+
+    fun insertIntervals(inte: ExerciseWithIntervals) {
+        val id = exerciseDatabase.exerciseDao().insertExercise(inte.exercise)
+
+        for (i in inte.intervals) {
+            i.exerciseId = id
+        }
+
+        insertIntervalsList(inte.intervals)
+    }
+
+
+    fun getIntervalsByExercise(ex: Exercise): LiveData<List<Interval>> {
+
+        return exerciseDatabase.intervalDao().getIntervalsByExerciseId(ex.id)
+
     }
 
 //    init {

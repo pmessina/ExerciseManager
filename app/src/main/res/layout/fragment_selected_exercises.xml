@@ -22,21 +22,19 @@
         android:layout_width="290dp"
         android:layout_height="499dp"
         android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSubmitExercises"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmitSelectedExercises"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSelectedExercises" />
 
 
-
-
     <Button
-        android:id="@+id/btnSubmitExercises"
+        android:id="@+id/btnSubmitSelectedExercises"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="41dp"
-        android:text="Ok"
+        android:text="Start Workout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

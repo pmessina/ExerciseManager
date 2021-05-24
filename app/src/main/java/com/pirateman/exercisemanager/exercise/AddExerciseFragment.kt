@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.pirateman.exercisemanager.R
-import kotlinx.android.synthetic.main.fragment_add_exercise.*
+import com.pirateman.exercisemanager.databinding.FragmentAddExerciseBinding
 
 
 class AddExerciseFragment : Fragment() {
@@ -24,7 +24,9 @@ class AddExerciseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnSubmitNewExercise.setOnClickListener {
+        val binding = FragmentAddExerciseBinding.inflate(layoutInflater)
+
+        binding.btnSubmitNewExercise.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(R.id.availableExercisesFragment)
         }
     }

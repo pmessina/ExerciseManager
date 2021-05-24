@@ -8,18 +8,6 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="activityFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="654" />
-                            <option name="y" value="261" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="addExerciseFragment">
                     <value>
                       <LayoutPositions>
@@ -67,6 +55,27 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="intervalContainerFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="708" />
+                            <option name="y" value="565" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_intervalContainerFragment_to_workoutsContainerFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="selectedExercisesFragment">
                     <value>
                       <LayoutPositions>
@@ -88,6 +97,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_selectedExercisesFragment_to_workoutsContainerFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -98,13 +112,39 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="398" />
-                            <option name="y" value="252" />
+                            <option name="x" value="422" />
+                            <option name="y" value="77" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_workoutFragment_to_selectedExercisesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="workoutsContainerFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="415" />
+                            <option name="y" value="386" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_workoutsContainerFragment_to_intervalContainerFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_workoutsContainerFragment_to_selectedExercisesFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

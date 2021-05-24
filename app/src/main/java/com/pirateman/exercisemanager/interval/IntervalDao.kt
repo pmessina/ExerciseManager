@@ -33,5 +33,7 @@ interface IntervalDao {
     val numberOfRows: Int
 
     @Query("select * from interval where exerciseId = :exerciseId")
-    fun getIntervalsByExerciseId(exerciseId: Int): LiveData<List<Interval?>?>?
+    fun getIntervalsByExerciseId(exerciseId: Long): LiveData<List<Interval>>
+
+
 }

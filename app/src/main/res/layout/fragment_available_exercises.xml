@@ -33,7 +33,7 @@
 
 
     <Button
-        android:id="@+id/btnSubmitExercises"
+        android:id="@+id/btnSubmitAvailableExercises"
         android:layout_width="264dp"
         android:layout_height="60dp"
         android:text="Ok"

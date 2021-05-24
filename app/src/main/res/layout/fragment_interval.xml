@@ -1,43 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
     tools:context=".interval.IntervalFragment">
+
 
     <EditText
         android:id="@+id/edtReps"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
         android:ems="10"
         android:hint="Reps"
-        android:inputType="number" />
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edtSets"
+        app:layout_constraintEnd_toStartOf="@+id/edtSets"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/edtSets"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="Sets"
-        android:inputType="number" />
-
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/edtWeight"
+        app:layout_constraintStart_toEndOf="@+id/edtReps"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edtWeight"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
         android:ems="10"
+        android:hint="Weight"
         android:inputType="number"
-        android:hint="Weight" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/edtSets"
+        app:layout_constraintEnd_toStartOf="@+id/imgAddExerciseInterval"
+        app:layout_constraintStart_toEndOf="@+id/edtSets" />
+
+    <ImageButton
+        android:id="@+id/imgAddExerciseInterval"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/img_button_style"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgDeleteInterval"
+        app:layout_constraintStart_toEndOf="@+id/edtWeight"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imgDeleteInterval"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@android:drawable/ic_delete" />
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@android:drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgAddExerciseInterval"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

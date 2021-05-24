@@ -3,22 +3,28 @@ package com.pirateman.exercisemanager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.AutoCompleteTextView
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.gridlayout.widget.GridLayout
-import kotlinx.android.synthetic.main.activity_exercise_criteria.*
+import androidx.viewbinding.ViewBinding
+import com.pirateman.exercisemanager.databinding.ActivityExerciseCriteriaBinding
+import org.koin.android.ext.android.inject
+
 
 class ExerciseCriteriaActivity : AppCompatActivity() {
 
+    private val binding by inject<ActivityExerciseCriteriaBinding>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exercise_criteria)
 
-        btnAddInterval.setOnClickListener {
-            val dur = tvDuration.text.toString()
-            val incl = tvIncline.text.toString()
-            val inte = tvIntervals.text.toString()
-            val spe = tvSpeed.text.toString()
+        val view = binding.root
+        setContentView(view)
+
+        binding.btnAddInterval.setOnClickListener {
+            val dur = binding.tvDuration.text.toString()
+            val incl = binding.tvIncline.text.toString()
+            val inte = binding.tvIntervals.text.toString()
+            val spe = binding.tvSpeed.text.toString()
             //TODO: use jetpack navigation
             val intent = Intent(this@ExerciseCriteriaActivity, ExercisePlannerActivity::class.java)
             intent.putExtra("duration", dur)

@@ -7,22 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pirateman.exercisemanager.R
+import com.pirateman.exercisemanager.databinding.FragmentSelectedExercisesBinding
 import com.pirateman.exercisemanager.exercise.ExerciseViewModel
-import kotlinx.android.synthetic.main.fragment_available_exercises.*
-import kotlinx.android.synthetic.main.fragment_selected_exercises.*
 import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.compat.ViewModelCompat.viewModel
-import org.koin.android.viewmodel.ext.android.viewModel
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-class SelectedExercisesFragment : Fragment(), KoinComponent {
+class SelectedExercisesFragment : Fragment() {
 
     private val exerciseViewModel: ExerciseViewModel by viewModel()
 
@@ -32,23 +28,31 @@ class SelectedExercisesFragment : Fragment(), KoinComponent {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        rvSelectedExerciseList.setHasFixedSize(true)
-        rvSelectedExerciseList.layoutManager = LinearLayoutManager(this.context)
+        val selectedExercisesBinding = FragmentSelectedExercisesBinding.bind(view)
+        selectedExercisesBinding.rvSelectedExerciseList.setHasFixedSize(true)
+        selectedExercisesBinding.rvSelectedExerciseList.layoutManager = LinearLayoutManager(this.context)
         val divider = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
-        rvSelectedExerciseList.addItemDecoration(divider)
+        selectedExercisesBinding.rvSelectedExerciseList.addItemDecoration(divider)
 
-        val selectedExercisesList = exerciseViewModel.exerciseList.filter { t -> t.selected } as ArrayList
+        val selectedExercisesList = exerciseViewModel.getSelectedExercisesList()
 
-//        exerciseViewModel.selectedExerciseList.p=ostValue(selectedExercisesList)
+//        exerciseViewModel.selectedExerciseList.postValue(selectedExercisesList)
 //
 //        exerciseViewModel.selectedExerciseList.observe(viewLifecycleOwner, Observer { sel ->
 //            val selectedExerciseAdapter = SelectedExercisesAdapter(sel, this.requireContext(), exerciseViewModel)
 //            rvSelectedExerciseList.adapter = selectedExerciseAdapter
 //
 //        })
+
         val selectedExerciseAdapter = SelectedExercisesAdapter(selectedExercisesList, this.requireContext(), exerciseViewModel)
-        rvSelectedExerciseList.adapter = selectedExerciseAdapter
+        selectedExercisesBinding.rvSelectedExerciseList.adapter = selectedExerciseAdapter
+
+
+        selectedExercisesBinding.btnSubmitSelectedExercises.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(R.id.workoutsContainerFragment)
+        }
     }
+
 
 
 }

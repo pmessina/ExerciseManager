@@ -7,8 +7,9 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.pirateman.exercisemanager.R
+import com.pirateman.exercisemanager.databinding.ActivityIntervalBinding
 import com.pirateman.exercisemanager.exercise.Exercise
-import kotlinx.android.synthetic.main.activity_interval.*
+import org.koin.android.ext.android.inject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -19,19 +20,22 @@ class IntervalActivity : AppCompatActivity(), View.OnClickListener {
     private var edtWeight: EditText? = null
     private var currentDate: String? = null
     private var exercise: Exercise? = null
+
+    private val intervalBinding by inject<ActivityIntervalBinding>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_interval)
         exercise = intent.getSerializableExtra("exercise") as Exercise?
 
-        tvExerciseName.text = exercise!!.name
+        intervalBinding.tvExerciseName.text = exercise!!.name
 
         currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
-        tvExerciseDate.text = currentDate
+        intervalBinding.tvExerciseDate.text = currentDate
 
         val btnSubmitInterval = findViewById<Button>(R.id.btnWorkoutSubmit)
         btnSubmitInterval.setOnClickListener(this)
-        imgAddInterval.setOnClickListener(this)
+        intervalBinding.imgAddInterval.setOnClickListener(this)
         //val intervalDao = ExerciseDatabase.getINSTANCE(this)?.intervalDao()
         //val intervals = intervalDao?.getIntervalsByExerciseId(exercise!!.id)
         //intervals!!.observe(this, Observer { })
@@ -53,7 +57,7 @@ class IntervalActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        val fragmentManager = fragmentManager
+        val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         when (v.id) {
             R.id.btnWorkoutSubmit -> {

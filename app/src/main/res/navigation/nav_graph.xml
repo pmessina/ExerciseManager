@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_selectedExercisesFragment_to_workoutFragment"
             app:destination="@id/workoutFragment" />
+        <action
+            android:id="@+id/action_selectedExercisesFragment_to_workoutsContainerFragment"
+            app:destination="@id/workoutsContainerFragment" />
     </fragment>
     <fragment
         android:id="@+id/workoutFragment"
@@ -46,5 +49,25 @@
         <action
             android:id="@+id/action_workoutFragment_to_selectedExercisesFragment"
             app:destination="@id/selectedExercisesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workoutsContainerFragment"
+        android:name="com.pirateman.exercisemanager.workout.WorkoutsContainerFragment"
+        android:label="Workout"
+        tools:layout="@layout/fragment_workouts_container">
+        <action
+            android:id="@+id/action_workoutsContainerFragment_to_selectedExercisesFragment"
+            app:destination="@id/selectedExercisesFragment" />
+        <action
+            android:id="@+id/action_workoutsContainerFragment_to_intervalContainerFragment"
+            app:destination="@id/intervalContainerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/intervalContainerFragment"
+        android:name="com.pirateman.exercisemanager.interval.IntervalContainerFragment"
+        android:label="Workout Intervals">
+        <action
+            android:id="@+id/action_intervalContainerFragment_to_workoutsContainerFragment"
+            app:destination="@id/workoutsContainerFragment" />
     </fragment>
 </navigation>

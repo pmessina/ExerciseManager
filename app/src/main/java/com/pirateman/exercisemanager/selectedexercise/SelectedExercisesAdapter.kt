@@ -8,37 +8,34 @@ import androidx.annotation.RequiresApi
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.pirateman.exercisemanager.R
+import com.pirateman.exercisemanager.databinding.RecyclerViewSelectedExerciseItemBinding
 import com.pirateman.exercisemanager.exercise.Exercise
 import com.pirateman.exercisemanager.exercise.ExerciseViewModel
-import kotlinx.android.synthetic.main.recycler_view_selected_exercise_item.view.*
 
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-class SelectedExercisesAdapter(private val exerciseList: ArrayList<Exercise>, private val context: Context, private val exerciseViewModel: ExerciseViewModel) : RecyclerView.Adapter<SelectedExerciseHolder>() /*, View.OnClickListener*/ {
-
-//    view.setOnClickListener(this)
-//
-//    imgDeleteExercise.setOnClickListener(this)
+class SelectedExercisesAdapter(private val exerciseList: ArrayList<Exercise>, private val context: Context, private val exerciseViewModel: ExerciseViewModel) : RecyclerView.Adapter<SelectedExerciseHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedExerciseHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_selected_exercise_item, parent, false)
-                ?: parent.rootView
-        return SelectedExerciseHolder(view)
+
+        val exerciseItemBinding = RecyclerViewSelectedExerciseItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return SelectedExerciseHolder(exerciseItemBinding)
     }
 
     override fun onBindViewHolder(holder: SelectedExerciseHolder, position: Int) {
+
         val exercise = exerciseList[position]
         holder.tvSelectedExerciseName.text = exercise.name
-        holder.view.tag = exercise
+        holder.itemView.tag = exercise
 
-        holder.view.setOnClickListener {
+        holder.itemView.setOnClickListener {
             val currentEx = it.tag as Exercise
             exerciseViewModel.currentExercise = currentEx
-            Navigation.findNavController(holder.view).navigate(R.id.workoutFragment)
+            Navigation.findNavController(holder.itemView).navigate(R.id.workoutFragment)
         }
 
-
-        holder.view.imgDelete.setOnClickListener {
+        holder.imgDeleteExercise.setOnClickListener {
             exerciseViewModel.setSelectedExercise(exercise, false)
             exerciseList.removeAt(position)
             notifyItemRemoved(position)

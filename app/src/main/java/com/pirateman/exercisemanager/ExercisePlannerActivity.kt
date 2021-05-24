@@ -8,14 +8,19 @@ import android.widget.GridLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.pirateman.exercisemanager.databinding.ActivityExercisePlannerBinding
+import org.koin.android.ext.android.inject
 import java.util.*
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 class ExercisePlannerActivity : AppCompatActivity(), ActivityFragment.Callbacks {
     private var layout: GridLayout? = null
+
+    private val exerciseBinding by inject<ActivityExercisePlannerBinding>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exercise_planner)
+        setContentView(exerciseBinding.root)
         layout = findViewById(R.id.glExerciseGenerator)
 
         //maximum values

@@ -3,22 +3,31 @@ package com.pirateman.exercisemanager.exercise
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.pirateman.exercisemanager.interval.ExerciseWithIntervals
+import com.pirateman.exercisemanager.interval.Interval
+import com.pirateman.exercisemanager.workout.WorkoutRepsSets
 import kotlinx.coroutines.*
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.util.*
+import kotlin.collections.HashMap
 
 class ExerciseViewModel() : ViewModel(), KoinComponent {
 
-    val exerciseRepository: ExerciseRepository by inject()
+    private val exerciseRepository: ExerciseRepository by inject()
     val exerciseAdapter: AvailableExercisesAdapter by inject()
 
-    val exerciseList = ArrayList<Exercise>()
+    val currentInterval = Interval()
+
+    var currentExerciseSelected: Exercise = Exercise("", "", "", false)
+
+    var exerciseList = ArrayList<Exercise>()
+
+    val intervals: HashMap<Exercise, ArrayList<WorkoutRepsSets>> = HashMap()
 
     val selectedExerciseList = MutableLiveData<ArrayList<Exercise>>()
 
-    lateinit var currentExercise: Exercise
+    var currentExercise: Exercise = Exercise("", "", "", false)
 
 //    val exercises: LiveData<List<Exercise>>
 
@@ -33,7 +42,7 @@ class ExerciseViewModel() : ViewModel(), KoinComponent {
 
     fun getAllExercises(): LiveData<List<Exercise>> {
 
-        return  exerciseRepository.getExercises()
+        return exerciseRepository.getExercises()
     }
 
     fun setSelectedExercise(exercise: Exercise, selected: Boolean) {
@@ -46,9 +55,20 @@ class ExerciseViewModel() : ViewModel(), KoinComponent {
 
             result.await()
         }
-//        if (!selected)
-//            exerciseList.add(exercise)
     }
+
+    fun getSelectedExercisesList() = exerciseList.filter { t -> t.selected } as ArrayList
+
+    fun getIntervalsByExercise(ex: Exercise): LiveData<List<Interval>> {
+        return exerciseRepository.getIntervalsByExercise(ex)
+    }
+
+
+    fun addIntervals(ex: Exercise, intervals: ArrayList<Interval>) {
+        val exerciseWithIntervals = ExerciseWithIntervals(ex, intervals)
+        return exerciseRepository.insertIntervals(exerciseWithIntervals)
+    }
+
 
 //    fun setSelectedExercise(exercise: Exercise) {
 //        selectedExercises.add(exercise)

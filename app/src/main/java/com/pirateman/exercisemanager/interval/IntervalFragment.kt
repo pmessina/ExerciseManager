@@ -1,85 +1,82 @@
 package com.pirateman.exercisemanager.interval
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.pirateman.exercisemanager.R
+import com.pirateman.exercisemanager.databinding.FragmentIntervalBinding
+import com.pirateman.exercisemanager.exercise.ExerciseViewModel
+import com.pirateman.exercisemanager.workout.WorkoutRepsSets
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [IntervalFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [IntervalFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class IntervalFragment : androidx.fragment.app.Fragment(), View.OnClickListener {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class IntervalFragment : Fragment() {
 
-    }
+    private val exerciseViewModel: ExerciseViewModel by viewModel()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    private val intervalBinding by inject<FragmentIntervalBinding>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_interval, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //        ImageButton imgDeleteInterval = view.findViewById(R.id.imgDeleteInterval);
-//        imgDeleteInterval.setOnClickListener(this);
-    }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        //fragmentManager.putFragment(outState, "IntervalFragment", this)
-    }
+        arguments?.let { args ->
+            exerciseViewModel.currentExerciseSelected.name.let {
+                val wkRepsSets = args.getParcelable<WorkoutRepsSets>(it)
 
-    fun onButtonPressed(uri: Uri?) {
-//        if (mListener != null) {
-//            mListener!!.onFragmentInteraction(uri)
-//        }
-    }
+                wkRepsSets?.let { rsw ->
+                    intervalBinding.edtReps.setText(rsw.reps)
+                    intervalBinding.edtSets.setText(rsw.sets)
+                    intervalBinding.edtWeight.setText(rsw.weight)
+                }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        //        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-    }
 
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-    override fun onClick(v: View) {
-        //this.fragmentManager.beginTransaction().detach(this).commit()
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
-     */
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri?)
-    }
-
-    companion object {
-
-        fun newInstance(): IntervalFragment {
-            return IntervalFragment()
+            }
         }
+
+        intervalBinding.imgAddExerciseInterval.setOnClickListener {
+
+            //TODO: Move to interval fragment
+            val reps = intervalBinding.edtReps.text.toString()
+            val sets = intervalBinding.edtSets.text.toString()
+            val weight = intervalBinding.edtWeight.text.toString()
+
+            // Interval needs to know what exercise it belongs to in the workout
+            val currentExercise = exerciseViewModel.currentExerciseSelected
+
+            if (exerciseViewModel.intervals.containsKey(currentExercise)) {
+                exerciseViewModel.intervals[currentExercise]?.add(
+                    WorkoutRepsSets(
+                        weight,
+                        reps,
+                        sets
+                    )
+                )
+                (this.parentFragment as IntervalContainerFragment).addIntervalFragment(
+                    exerciseViewModel.intervals[currentExercise]
+                )
+            } else {
+                exerciseViewModel.intervals[currentExercise] =
+                    arrayListOf(WorkoutRepsSets(weight, reps, sets))
+            }
+
+
+            //(this.parentFragment as IntervalContainerFragment).
+
+
+        }
+
+
     }
+
 }

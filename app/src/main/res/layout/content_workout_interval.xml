@@ -1,23 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearLayout"
-    android:layout_width="100dp"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
 
     <EditText
-        android:id="@+id/editText4"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:id="@+id/edtWorkoutReps"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
+        android:layout_marginBottom="7dp"
         android:ems="10"
         android:hint="Reps"
-        android:inputType="number" />
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText5"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:id="@+id/edtWorkoutSets"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginBottom="7dp"
         android:ems="10"
         android:hint="Sets"
-        android:inputType="number" />
-</LinearLayout>
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView9"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reps:"
+        app:layout_constraintBottom_toBottomOf="@+id/edtWorkoutSets"
+        app:layout_constraintEnd_toStartOf="@+id/edtWorkoutSets"
+        app:layout_constraintStart_toEndOf="@+id/edtWorkoutWeight"
+        app:layout_constraintTop_toTopOf="@+id/edtWorkoutSets" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sets:"
+        app:layout_constraintBottom_toBottomOf="@+id/edtWorkoutReps"
+        app:layout_constraintEnd_toStartOf="@+id/edtWorkoutReps"
+        app:layout_constraintStart_toEndOf="@+id/edtWorkoutSets"
+        app:layout_constraintTop_toTopOf="@+id/edtWorkoutReps" />
+
+    <EditText
+        android:id="@+id/edtWorkoutWeight"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:layout_marginBottom="7dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginLeft="33dp"
+        android:text="Weight:"
+        app:layout_constraintBottom_toBottomOf="@+id/edtWorkoutWeight"
+        app:layout_constraintEnd_toStartOf="@+id/edtWorkoutWeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edtWorkoutWeight" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

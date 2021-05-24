@@ -1,28 +1,19 @@
 package com.pirateman.exercisemanager.selectedexercise
 
 import android.os.Build
-import android.view.View
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
-import com.pirateman.exercisemanager.R
-import com.pirateman.exercisemanager.exercise.Exercise
-import com.pirateman.exercisemanager.exercise.ExerciseViewModel
-import kotlinx.android.synthetic.main.recycler_view_selected_exercise_item.view.*
-import org.koin.android.viewmodel.compat.ScopeCompat.viewModel
-import org.koin.core.KoinComponent
+import com.pirateman.exercisemanager.databinding.RecyclerViewSelectedExerciseItemBinding
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-class SelectedExerciseHolder(val view: View) : RecyclerView.ViewHolder(view) /*, View.OnClickListener*/ {
+class SelectedExerciseHolder(private val viewBinding: RecyclerViewSelectedExerciseItemBinding) : RecyclerView.ViewHolder(viewBinding.root) {
 
-    val tvSelectedExerciseName = view.findViewById(R.id.tvSelectedExerciseName) as TextView
-    val imgDeleteExercise = view.findViewById(R.id.imgDelete) as ImageButton
+    //For potential future use
+    val tvSelectedExerciseName = viewBinding.tvSelectedExerciseName
+    val imgDeleteExercise = viewBinding.imgDelete
 
     init {
-        view.isClickable = true
+        viewBinding.root.isClickable = true
 
 //        imgDeleteExercise.setOnClickListener {
 //            (itemView as ViewGroup).removeView(view)

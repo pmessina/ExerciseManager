@@ -31,7 +31,7 @@
         android:layout_height="525dp" />
 
     <Button
-        android:id="@+id/btnSubmitExercises"
+        android:id="@+id/btnSubmitSelectedExercises"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ok" />

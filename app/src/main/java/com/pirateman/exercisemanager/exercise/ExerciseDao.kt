@@ -1,6 +1,7 @@
 package com.pirateman.exercisemanager.exercise
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.pirateman.exercisemanager.interval.Interval
 
@@ -13,7 +14,8 @@ interface ExerciseDao {
     fun getAllExercises(): LiveData<List<Exercise>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertExercise(exercise: Exercise?)
+    @Transaction
+    fun insertExercise(exercise: Exercise?): Long
 
     @Query("select * from exercise where id = :id")
     fun getExerciseById(id: Int): LiveData<Exercise?>?
@@ -24,11 +26,14 @@ interface ExerciseDao {
     @Update
     suspend fun updateExercise(exercise:Exercise)
 
+
     @Insert
-    fun insertInterval(interval: Interval?)
+    fun insertIntervals(interval: List<Interval>)
 
     @Insert
     fun insertAll(vararg exercises: Exercise?)
+
+
 
 //    @Query("delete from exercise")
 //    fun removeAll()
